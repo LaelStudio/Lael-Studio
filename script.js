@@ -21,9 +21,42 @@ document.addEventListener('click', (event) => {
   button.querySelector('.expand-label').textContent = isExpanded ? 'Collapse image' : 'Expand image';
 });
 
-document.querySelector('#enquiry-form').addEventListener('submit', (event) => {
+const enquiryForm = document.querySelector('#enquiry-form');
+const formMessage = document.querySelector('#form-message');
+const successOverlay = document.querySelector('#success-overlay');
+const successClose = document.querySelector('.success-close');
+
+enquiryForm.addEventListener('submit', async (event) => {
   event.preventDefault();
-  const message = document.querySelector('#form-message');
-  message.textContent = 'Thanks — your enquiry is ready to send. We will be in touch within 1–3 business days.';
-  event.target.reset();
+  const submitButton = enquiryForm.querySelector('button[type="submit"]');
+
+  submitButton.disabled = true;
+  formMessage.textContent = 'Sending...';
+
+  try {
+    const response = await fetch(enquiryForm.action, {
+      method: 'POST',
+      body: new FormData(enquiryForm),
+      headers: { Accept: 'application/json' }
+    });
+    const result = await response.json();
+
+    if (!response.ok || !result.success) {
+      throw new Error(result.message || 'Something went wrong. Please try again.');
+    }
+
+    enquiryForm.reset();
+    formMessage.textContent = '';
+    successOverlay.hidden = false;
+    successClose.focus();
+  } catch (error) {
+    formMessage.textContent = error.message;
+  } finally {
+    submitButton.disabled = false;
+  }
 });
+
+successClose.addEventListener('click', () => {
+  successOverlay.hidden = true;
+});
+

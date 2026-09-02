@@ -26,8 +26,8 @@ body {
   background: var(--paper);
   color: var(--ink);
   font-family: var(--sans);
-  font-size: 16px;
-  line-height: 1.5;
+  font-size: 15px;
+  line-height: 1.6;
 }
 
 
@@ -69,7 +69,7 @@ body {
   display: flex;
   align-items: center;
   gap: 2.5vw;
-  font-size: 13px;
+  font-size: 12px;
   background: transparent !important; 
 }
 
@@ -228,7 +228,7 @@ h2 em {
 }
 
 .hero-intro {
-  font-size: 19px;
+  font-size: 16px;
   max-width: 500px;
   margin-bottom: 15px;
 }
@@ -294,7 +294,8 @@ h2 em {
 }
 
 .body-copy p {
-  margin: 0 0 22px;
+  margin: 0 0 18px;
+  font-size: 14px;
 }
 
 .text-link {
@@ -426,12 +427,12 @@ h2 em {
 }
 
 .benefits h3 {
-  font: 500 21px var(--serif);
-  margin: 45px 0 12px;
+  font: 500 18px var(--serif);
+  margin: 40px 0 10px;
 }
 
 .benefits p {
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .process {
@@ -476,8 +477,8 @@ h2 em {
 }
 
 .steps h3 {
-  font: 500 20px / 1.1 var(--serif);
-  margin: 45px 0 18px;
+  font: 500 18px / 1.1 var(--serif);
+  margin: 40px 0 10px;
 }
 
 .steps p {
@@ -559,14 +560,14 @@ h2 em {
 }
 
 .work h3 {
-  font: 500 24px var(--serif);
-  margin: 15px 0 0;
+  font: 500 20px var(--serif);
+  margin: 12px 0 0;
    color: #ffffff;
 }
 
 .work p {
   font: 11px var(--mono);
-  margin: 3px 0;
+  margin: 2px 0;
    color: #ffffff;
 }
 
@@ -594,13 +595,13 @@ h2 em {
   margin: 0;
   border-top: 2px solid var(--ink);
   padding-top: 22px;
-  font: 500 24px / 1.15 var(--serif);
+  font: 500 20px / 1.3 var(--serif);
 }
 
 cite {
   display: block;
   font: 11px var(--mono);
-  margin-top: 35px;
+  margin-top: 25px;
 }
 
 .services {
@@ -634,7 +635,7 @@ cite {
   -webkit-backdrop-filter: blur(1px);
   color: #000000;
   padding: 20px;
-  min-height: 405px;
+  min-height: auto;
   display: flex;
   flex-direction: column;
 }
@@ -646,20 +647,20 @@ cite {
 
 .price-card h3 {
   font: 500 34px var(--serif);
-  margin: 38px 0 14px;
-}
-
-.price-card p {
-  font-size: 14px;
-  max-width: 300px;
-  min-height: 90px;
+  margin: 30px 0 6px;
 }
 
 .price-card strong {
   width: 100%;
-  font: 500 20px var(--serif);
+  font: 500 18px var(--serif);
   text-align: left;
-  margin-top: 25px;
+  margin-bottom: 10px;
+}
+
+.price-card p {
+  font-size: 13px;
+  max-width: 300px;
+  margin-bottom: 8px;
 }
 
 .price-card small {
@@ -672,6 +673,35 @@ cite {
   text-transform: uppercase;
   border-top: 1px solid currentColor;
   padding-top: 14px;
+  margin-top: auto;
+}
+
+.features-list {
+  font-size: 12px;
+  line-height: 1.4;
+  margin: 10px 0;
+  flex-grow: 1;
+}
+
+.features-list p {
+  margin: 0 0 6px 0;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.features-list ul {
+  margin: 0;
+  padding-left: 18px;
+  list-style-position: outside;
+}
+
+.features-list li {
+  margin-bottom: 5px;
+  line-height: 1.4;
+}
+
+.features-list strong {
+  font-weight: 600;
 }
 
 .pricing-note {
@@ -738,7 +768,7 @@ cite {
 summary {
   cursor: pointer;
   list-style: none;
-  font: 500 19px var(--serif);
+  font: 500 16px var(--serif);
   display: flex;
   justify-content: space-between;
 }
@@ -754,7 +784,7 @@ summary span {
 
 summary span::before {
   content: '+';
-  font: 22px var(--sans);
+  font: 20px var(--sans);
 }
 
 details[open] summary span::before {
@@ -762,9 +792,9 @@ details[open] summary span::before {
 }
 
 details p {
-  font-size: 14px;
+  font-size: 13px;
   max-width: 530px;
-  margin: 15px 30px 0 0;
+  margin: 12px 30px 0 0;
 }
 
 .enquiry {
@@ -896,6 +926,10 @@ textarea {
   text-transform: none;
 }
 
+.check a {
+  text-decoration: underline;
+}
+
 .check input {
   width: auto;
   margin: 0;
@@ -911,6 +945,55 @@ textarea {
 
 .enquiry form .button {
   margin-bottom: 0;
+}
+
+.success-overlay[hidden] {
+  display: none;
+}
+
+.success-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(255, 255, 255, .78);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+.success-dialog {
+  position: relative;
+  width: min(100%, 460px);
+  padding: 56px 40px 48px;
+  background: #ffffff;
+  color: #000000;
+  text-align: center;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, .16);
+}
+
+.success-dialog h2 {
+  margin: 0 0 16px;
+  font: 500 28px / 1.1 var(--serif);
+}
+
+.success-dialog p {
+  margin: 0;
+  font: 12px / 1.5 var(--mono);
+}
+
+.success-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  background: transparent;
+  color: #000000;
+  font: 28px / 1 var(--sans);
+  cursor: pointer;
 }
 
 .button-light {
@@ -1017,25 +1100,41 @@ footer > div {
   }
 }
 
+/* ==========================================
+   TABLET BREAKPOINT (760px and below)
+   ========================================== */
 @media (max-width: 760px) {
+  body {
+    font-size: 15px;
+  }
+
   .site-header {
     height: auto;
-    padding: 15px 5vw;
+    padding: 12px 5vw;
     background-color: var(--cream);
+  }
+
+  .site-header .logo-main {
+    font-size: 18px;
+  }
+
+  .site-header .logo-sub {
+    font-size: 22px;
   }
   
   .nav {
     display: none;
     position: absolute;
-    top: 75px;
+    top: 60px;
     left: 0;
     right: 0;
     background: var(--cream);
-    padding: 25px 8vw;
+    padding: 20px 8vw;
     flex-direction: column;
     align-items: flex-start;
-    gap: 18px;
+    gap: 14px;
     border-bottom: 1px solid var(--line);
+    font-size: 12px;
   }
   
   .nav.open {
@@ -1047,27 +1146,46 @@ footer > div {
   }
   
   .section-pad {
-    padding: 85px 7vw;
-  }
-  
-  .hero {
-    padding-top: 140px;
-    display: block;
-    min-height: 850px;
-  }
-  
-  .hero h1 {
-    font-size: 58px;
-    margin-top: 30px;
-  }
-  
-  .hero-bottom {
-    left: 7vw;
-    right: 7vw;
+    padding: 60px 7vw;
   }
   
   .section-label {
-    margin-bottom: 45px;
+    font-size: 10px;
+    margin-bottom: 30px;
+  }
+
+  .eyebrow {
+    font-size: 9px;
+  }
+  
+  .hero {
+    padding-top: 80px;
+    display: block;
+    min-height: 500px;
+  }
+
+  .hero-logo .logo-main {
+    font-size: 32px;
+    letter-spacing: 5px;
+  }
+
+  .hero-logo .logo-sub {
+    font-size: 42px;
+  }
+  
+  .hero h1 {
+    font-size: clamp(26px, 4.5vw, 40px);
+    margin-top: 16px;
+  }
+
+  .hero-intro {
+    font-size: 13px;
+  }
+
+  .hero-bottom {
+    left: 7vw;
+    right: 7vw;
+    font-size: 9px;
   }
   
   .intro-content, 
@@ -1081,7 +1199,13 @@ footer > div {
   }
   
   .body-copy {
-    margin-top: 40px;
+    margin-top: 30px;
+    max-width: 100%;
+  }
+
+  .body-copy p {
+    font-size: 14px;
+    margin-bottom: 16px;
   }
   
   .about-grid h2, 
@@ -1091,103 +1215,553 @@ footer > div {
   .services h2, 
   .faq h2, 
   .enquiry h2 {
-    font-size: 51px;
+    font-size: clamp(28px, 4.2vw, 44px);
+  }
+
+  .display {
+    font-size: clamp(24px, 3.8vw, 40px);
   }
   
   .why-head {
-    margin-bottom: 50px;
+    margin-bottom: 40px;
   }
   
-  .benefits, 
+  .benefits {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
   .steps, 
   .quote-grid, 
-  .pricing, 
-  .work-grid {
-    grid-template-columns: 1fr 1fr;
+  .pricing {
+    grid-template-columns: 1fr;
     display: grid;
+    gap: 16px;
+  }
+
+  .work-grid {
+    grid-template-columns: repeat(3, 1fr);
+    display: grid;
+    gap: 12px;
+  }
+
+  .benefits article, 
+  .steps article {
+    padding: 14px 0;
   }
   
   .benefits article {
-    padding-bottom: 20px;
-    border: 1px solid rgba(255, 255, 255, .65);
+    border-bottom: 1px solid rgba(255, 255, 255, .65);
     margin: 0;
   }
-  
-  .benefits h3 {
-    margin-top: 28px;
+
+  .benefits b, 
+  .steps span {
+    font-size: 10px;
+  }
+
+  .benefits h3,
+  .steps h3 {
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 6px;
+  }
+
+  .benefits p,
+  .steps p {
+    font-size: 12px;
   }
   
-  .steps {
-    grid-template-columns: 1fr 1fr;
+  .about-image img {
+    height: 280px;
+    margin-top: 30px;
   }
-  
-  .steps article:last-child {
-    grid-column: span 2;
+
+  .intro-3-columns {
+    flex-direction: column;
+  }
+
+  .intro-col-left .display {
+    font-size: clamp(24px, 4vw, 42px);
   }
   
   .work-large {
-    grid-column: span 2;
+    grid-column: span 1;
   }
   
   .work-large img, 
   .work img {
-    height: 240px;
+    height: 120px;
   }
-  
+
   .work-large img {
-    height: 330px;
+    height: 120px;
   }
 
   .work-image.is-expanded img,
   .work-large .work-image.is-expanded img {
     height: auto;
   }
+
+  .work h3 {
+    font-size: 14px;
+  }
+
+  .work p {
+    font-size: 12px;
+  }
   
   .quote-grid {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 30px;
+  }
+
+  blockquote {
+    font-size: 14px;
+  }
+
+  cite {
+    font-size: 12px;
   }
   
   .pricing {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
   
   .price-card {
-    min-height: 360px;
+    min-height: auto;
+    padding: 16px;
+  }
+
+  .price-card span.price-number {
+    font-size: 11px;
+  }
+
+  .price-card h3 {
+    font-size: 22px;
+    margin: 20px 0 6px;
+  }
+
+  .price-card strong {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .price-card p {
+    font-size: 12px;
+    margin-bottom: 10px;
+    max-width: 100%;
+  }
+
+  .price-card a {
+    font-size: 10px;
   }
   
   .commerce-note {
     display: block;
     transform: none;
+    padding-top: 20px;
+    font-size: 13px;
   }
 
   .commerce-note b {
     transform: none;
+    font-size: 16px;
+    margin-bottom: 10px;
+    display: block;
   }
   
   .commerce-note span {
     display: block;
-    margin-top: 12px;
+    margin-top: 0;
+    font-size: 12px;
   }
   
   .faq-layout h2 {
-    margin-bottom: 50px;
+    margin-bottom: 35px;
+  }
+
+  .faq-list {
+    flex-direction: column;
+  }
+
+  details summary {
+    font-size: 13px;
+    padding: 12px 0;
+  }
+
+  details p {
+    font-size: 12px;
+    margin: 12px 0;
   }
   
   .enquiry form {
-    margin-top: 55px;
+    margin-top: 35px;
+  }
+
+  .enquiry form label {
+    font-size: 12px;
+    margin-bottom: 14px;
+  }
+
+  .enquiry form input,
+  .enquiry form select,
+  .enquiry form textarea {
+    font-size: 12px;
+    padding: 10px;
+  }
+
+  .button {
+    font-size: 10px;
+    padding: 16px 16px;
+    gap: 16px;
+    margin: 14px 0 14px;
   }
   
   footer {
     display: block;
+    padding: 40px 7vw;
+    font-size: 11px;
+  }
+
+  footer .logo-main {
+    font-size: 16px;
+  }
+
+  footer .logo-sub {
+    font-size: 20px;
   }
   
   footer p {
-    margin: 25px 0;
+    margin: 16px 0;
+  }
+
+  footer a {
+    font-size: 10px;
+  }
+}
+
+/* ==========================================
+   MOBILE BREAKPOINT (480px and below)
+   ========================================== */
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+
+  .site-header {
+    padding: 10px 4vw;
+  }
+
+  .site-header .logo-main {
+    font-size: 16px;
+  }
+
+  .site-header .logo-sub {
+    font-size: 18px;
+  }
+
+  .nav {
+    top: 55px;
+    padding: 16px 6vw;
+    gap: 12px;
+    font-size: 11px;
+  }
+
+  .section-pad {
+    padding: 45px 5vw;
+  }
+
+  .section-label {
+    font-size: 8px;
+    letter-spacing: 0.06em;
+    margin-bottom: 20px;
+  }
+
+  .eyebrow {
+    font-size: 8px;
+  }
+
+  .hero {
+    padding-top: 70px;
+    min-height: 500px;
+  }
+
+  .hero-logo .logo-main {
+    font-size: 32px;
+    letter-spacing: 5px;
+  }
+
+  .hero-logo .logo-sub {
+    font-size: 40px;
+  }
+
+  .hero h1 {
+    font-size: clamp(20px, 4.5vw, 30px);
+    margin-top: 12px;
+    line-height: 1;
+  }
+
+  .hero-intro {
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  .hero-bottom {
+    left: 5vw;
+    right: 5vw;
+    font-size: 8px;
+    gap: 12px;
+    bottom: 25px;
+  }
+
+  .display {
+    font-size: clamp(20px, 3.5vw, 32px);
+    line-height: 1.1;
+  }
+
+  .intro-3-columns {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .intro-col-left .display {
+    font-size: clamp(20px, 3.5vw, 32px);
+  }
+
+  .body-copy {
+    margin-top: 20px;
+  }
+
+  .body-copy p {
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+
+  .about-grid h2,
+  .why h2,
+  .process h2,
+  .portfolio h2,
+  .services h2,
+  .faq h2,
+  .enquiry h2 {
+    font-size: clamp(20px, 3.5vw, 30px);
+    line-height: 1.1;
+  }
+
+  .why-head {
+    margin-bottom: 30px;
+  }
+
+  .benefits {
+    gap: 0;
+  }
+
+  .steps,
+  .quote-grid,
+  .pricing,
+  .work-grid {
+    gap: 12px;
+  }
+
+  .steps,
+  .quote-grid,
+  .pricing {
+    grid-template-columns: 1fr;
+  }
+
+  .work-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .benefits article,
+  .steps article {
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, .65);
+  }
+
+  .benefits b,
+  .steps span {
+    font-size: 9px;
+  }
+
+  .benefits h3,
+  .steps h3 {
+    font-size: 12px;
+    margin-top: 8px;
+    margin-bottom: 4px;
+  }
+
+  .benefits p,
+  .steps p {
+    font-size: 11px;
+  }
+
+  .about-image img {
+    height: 220px;
+    margin-top: 25px;
+  }
+
+  .work-large img,
+  .work img {
+    height: 120px;
+  }
+
+  .work-large img {
+    height: 120px;
+  }
+
+  .work h3 {
+    font-size: 13px;
+  }
+
+  .work p {
+    font-size: 11px;
+  }
+
+  blockquote {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  cite {
+    font-size: 11px;
+    display: block;
+    margin-top: 8px;
+  }
+
+  .price-card {
+    padding: 14px;
+  }
+
+  .price-card span.price-number {
+    font-size: 10px;
+  }
+
+  .price-card h3 {
+    font-size: 18px;
+    margin: 14px 0 4px;
+  }
+
+  .price-card strong {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .price-card p {
+    font-size: 11px;
+    margin-bottom: 8px;
+  }
+
+  .price-card a {
+    font-size: 9px;
+    padding-top: 10px;
+  }
+
+  .features-list {
+    font-size: 11px;
+    line-height: 1.3;
+    margin: 8px 0;
+  }
+
+  .features-list p {
+    font-size: 11px;
+    margin-bottom: 4px;
+  }
+
+  .features-list ul {
+    padding-left: 16px;
+  }
+
+  .features-list li {
+    margin-bottom: 2px;
+  }
+
+  .commerce-note {
+    padding-top: 16px;
+    font-size: 12px;
+  }
+
+  .commerce-note b {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .commerce-note span {
+    font-size: 11px;
+  }
+
+  .pricing-note {
+    font-size: 11px;
+    margin: 16px 0;
+  }
+
+  .faq-layout h2 {
+    margin-bottom: 24px;
+  }
+
+  details summary {
+    font-size: 12px;
+    padding: 10px 0;
+  }
+
+  details p {
+    font-size: 11px;
+    margin: 10px 0;
+  }
+
+  .enquiry form {
+    margin-top: 25px;
+  }
+
+  .enquiry form label {
+    font-size: 11px;
+    margin-bottom: 10px;
+  }
+
+  .enquiry form input,
+  .enquiry form select,
+  .enquiry form textarea {
+    font-size: 11px;
+    padding: 8px;
+  }
+
+  .button {
+    font-size: 9px;
+    padding: 12px 12px;
+    gap: 12px;
+    margin: 10px 0 10px;
+  }
+
+  footer {
+    padding: 30px 5vw;
+    font-size: 10px;
+  }
+
+  footer .logo-main {
+    font-size: 14px;
+  }
+
+  footer .logo-sub {
+    font-size: 18px;
+  }
+
+  footer p {
+    margin: 12px 0;
+  }
+
+  footer a {
+    font-size: 9px;
   }
 }
 
 /* Maak die opskrif en die paragraaf in die portfolio-seksie wit */
+.portfolio-head h2,
+.portfolio-head h2 em,
+.portfolio-head p {
+  color: #ffffff !important;
+}
 .portfolio-head h2,
 .portfolio-head h2 em,
 .portfolio-head p {
