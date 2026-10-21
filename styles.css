@@ -1086,33 +1086,63 @@ footer > div {
 /* ==========================================
    7. MEDIA QUERIES / MOBILE RESPONSIVE
    ========================================== */
-@media (max-width: 900px) {
-  .intro-3-columns {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
 
-  .about-grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-
-  .about-image img {
-    height: 360px;
+/* Small phones (480px and below) */
+@media (max-width: 480px) {
+  body {
+    font-size: 15px;
   }
 }
 
-/* ==========================================
-   TABLET BREAKPOINT (760px and below)
-   ========================================== */
-@media (max-width: 760px) {
+/* Tablets and Mobile Phones (768px and below) */
+@media (max-width: 768px) {
+
+  /* ==========================================
+     [SECTION 0]: GLOBAL DEFAULTS & PADDING
+     ========================================== */
   body {
     font-size: 15px;
   }
 
+  .section-pad {
+    padding: 50px 24px !important;
+    box-sizing: border-box !important;
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    margin-bottom: 24px;
+  }
+
+  .eyebrow {
+    font-size: 10px;
+  }
+
+  /* Global Headings Scaling on Mobile */
+  .about-grid h2, 
+  .why h2, 
+  .process h2, 
+  .portfolio h2, 
+  .services h2, 
+  .faq h2, 
+  .enquiry h2 {
+    font-size: clamp(26px, 6vw, 36px) !important;
+    line-height: 1.2;
+  }
+
+  .display {
+    font-size: clamp(24px, 5vw, 36px);
+    line-height: 1.2;
+  }
+
+
+  /* ==========================================
+     [SECTION 1]: HEADER & MOBILE DROPDOWN MENU
+     ========================================== */
   .site-header {
     height: auto;
-    padding: 12px 5vw;
+    padding: 14px 20px;
     background-color: var(--cream);
   }
 
@@ -1121,9 +1151,9 @@ footer > div {
   }
 
   .site-header .logo-sub {
-    font-size: 22px;
+    font-size: 20px;
   }
-  
+
   .nav {
     display: none;
     position: absolute;
@@ -1131,641 +1161,457 @@ footer > div {
     left: 0;
     right: 0;
     background: var(--cream);
-    padding: 20px 8vw;
+    padding: 24px 24px;
     flex-direction: column;
     align-items: flex-start;
-    gap: 14px;
+    gap: 16px;
     border-bottom: 1px solid var(--line);
-    font-size: 12px;
+    font-size: 14px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
   }
-  
+
   .nav.open {
     display: flex;
   }
-  
+
   .menu-toggle {
     display: block;
   }
-  
-  .section-pad {
-    padding: 60px 7vw;
-  }
-  
-  .section-label {
-    font-size: 10px;
-    margin-bottom: 30px;
-  }
 
-  .eyebrow {
-    font-size: 9px;
-  }
-  
+
+  /* ==========================================
+     [SECTION 2]: HERO SECTION
+     ========================================== */
   .hero {
-    padding-top: 80px;
+    padding-top: 90px;
     display: block;
-    min-height: 500px;
+    min-height: auto;
+    padding-bottom: 40px;
   }
 
   .hero-logo .logo-main {
-    font-size: 32px;
-    letter-spacing: 5px;
+    font-size: 36px;
+    letter-spacing: 4px;
   }
 
   .hero-logo .logo-sub {
     font-size: 42px;
   }
-  
+
   .hero h1 {
-    font-size: clamp(26px, 4.5vw, 40px);
+    font-size: clamp(24px, 5vw, 34px);
     margin-top: 16px;
+    line-height: 1.2;
   }
 
   .hero-intro {
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .hero-bottom {
-    left: 7vw;
-    right: 7vw;
-    font-size: 9px;
-  }
-  
-  .intro-content, 
-  .about-grid, 
-  .why-head, 
-  .portfolio-head, 
-  .services-head, 
-  .faq-layout, 
-  .enquiry {
-    display: block;
-  }
-  
-  .body-copy {
+    position: relative;
+    left: 0;
+    right: 0;
     margin-top: 30px;
-    max-width: 100%;
-  }
-
-  .body-copy p {
-    font-size: 14px;
-    margin-bottom: 16px;
-  }
-  
-  .about-grid h2, 
-  .why h2, 
-  .process h2, 
-  .portfolio h2, 
-  .services h2, 
-  .faq h2, 
-  .enquiry h2 {
-    font-size: clamp(28px, 4.2vw, 44px);
-  }
-
-  .display {
-    font-size: clamp(24px, 3.8vw, 40px);
-  }
-  
-  .why-head {
-    margin-bottom: 40px;
-  }
-  
-  .benefits {
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
-
-  .steps, 
-  .quote-grid, 
-  .pricing {
-    grid-template-columns: 1fr;
-    display: grid;
-    gap: 16px;
-  }
-
-  .work-grid {
-    grid-template-columns: repeat(3, 1fr);
-    display: grid;
-    gap: 12px;
-  }
-
-  .benefits article, 
-  .steps article {
-    padding: 14px 0;
-  }
-  
-  .benefits article {
-    border-bottom: 1px solid rgba(255, 255, 255, .65);
-    margin: 0;
-  }
-
-  .benefits b, 
-  .steps span {
     font-size: 10px;
   }
 
-  .benefits h3,
-  .steps h3 {
-    font-size: 14px;
-    margin-top: 10px;
-    margin-bottom: 6px;
+
+/* ==========================================
+     [SECTION 3]: WELCOME INTRO (FULL CSS CODE)
+     ========================================== */
+
+  /* Set identical outer padding on the left and right sides of Section 3 */
+  .intro-content.section-pad,
+  .intro-content {
+    padding-left: 24px !important;       /* Sets 24px outer margin space on the left side */
+    padding-right: 24px !important;      /* Sets 24px outer margin space on the right side */
   }
 
-  .benefits p,
-  .steps p {
-    font-size: 12px;
-  }
-  
-  .about-image img {
-    height: 280px;
-    margin-top: 30px;
+  /* Reset section label padding so text aligns flush to the outer edge */
+  .intro-content .section-label {
+    padding-left: 0 !important;          /* Keeps "01 / WELCOME" label flush to the left boundary */
   }
 
+  /* 1. Main Flex Container holding the heading, photo, and body text */
   .intro-3-columns {
-    flex-direction: column;
+    display: flex !important;            /* Activates flexbox layout engine for child columns */
+    flex-direction: row !important;      /* Arranges child columns horizontally in a row */
+    flex-wrap: wrap !important;          /* Allows order 3 (body text) to break onto a new row below */
+    align-items: stretch !important;     /* Stretches text and image columns to match vertical heights */
+    justify-content: flex-start !important; /* Lines up flex items starting from the left edge */
+    gap: 14px !important;                /* Sets exact horizontal gap between text column and image */
+    width: 100% !important;              /* Ensures flex container occupies 100% of printable width */
   }
 
-  .intro-col-left .display {
-    font-size: clamp(24px, 4vw, 42px);
+  /* 2. Heading Column Wrapper (LEFT SIDE) */
+  .intro-col-left {
+    width: 40% !important;               /* Sets column width percentage */
+    max-width: 40% !important;           /* Restricts column width from exceeding 46% */
+    flex: 0 0 40% !important;            /* Hard-locks column flex basis (no grow, no shrink) at 46% */
+    order: 1 !important;                 /* Positions heading column first in flex row (left side) */
+    margin: 0 !important;                /* Removes browser default div margin */
+    padding: 0 !important;               /* Removes browser default div padding */
+    display: flex !important;            /* Turns heading wrapper div into an internal flexbox */
+    flex-direction: column !important;   /* Stacks internal heading text elements vertically */
+    justify-content: flex-start !important; /* Pulls internal heading text flush to top edge */
+    align-self: flex-start !important;   /* Aligns top edge of heading wrapper with top of image */
   }
-  
+
+  /* Typography for Heading Text inside Left Column */
+  .intro-col-left h2,
+  .intro-col-left .display {
+    font-size: 29.5px !important;          /* Sets heading font size to match Section 4 */
+    line-height: 1.05 !important;         /* Sets tight vertical line spacing matching Section 4 */
+    text-align: right !important;        /* Right-aligns text to hug against the left edge of photo */
+    margin: 0 !important;                /* Strips browser default heading margin */
+    padding: 0 !important;               /* Strips browser default heading padding */
+  }
+
+  /* Target emphasis tag ("Perfect.") inside heading */
+  .intro-col-left h2 em,
+  .intro-col-left .display em {
+    font-size: 27.5px !important;          /* Keeps italicized word locked at 26px font size */
+    font-style: italic !important;       /* Applies brand accent italic styling */
+  }
+
+  /* 3. Image Column Wrapper (RIGHT SIDE) */
+  .intro-col-image {
+    width: 54% !important;               /* Sets column width percentage */
+    max-width: 54% !important;           /* Restricts column width from exceeding 46% */
+    flex: 0 0 54% !important;            /* Hard-locks column flex basis (no grow, no shrink) at 46% */
+    order: 2 !important;                 /* Positions image column second in flex row (right side) */
+    margin-left: auto !important;        /* Pushes image column flush to the right outer margin */
+    margin-top: 0 !important;            /* Resets top margin on image container wrapper */
+    margin-right: 10 !important;          /* Resets right margin on image container wrapper */
+    margin-bottom: 0 !important;         /* Resets bottom margin on image container wrapper */
+    padding: 0 !important;               /* Removes browser default div padding */
+  }
+
+  /* Image element styling inside Right Column */
+  .intro-col-image img {
+    width: 95% !important;              /* Forces image to fill 100% width of right column */
+    height: 70% !important;             /* Stretches image height to match text column height */
+    min-height: 185px !important;        /* Ensures image maintains minimum 220px vertical height */
+    object-fit: cover !important;        /* Scales photo to fill frame without distortion */
+    border-radius: 4px !important;       /* Applies 4px rounded corner radius matching Section 4 */
+    object-position: center !important; /* Focuses cropping frame on bottom portion of image */
+    margin: 0 !important;                /* Strips browser default image margins */
+  }
+
+  /* 4. Paragraph Body Copy Wrapper (BOTTOM ROW) */
+  /* 4. Paragraph Body Copy Wrapper (BOTTOM ROW) */
+  .intro-col-right {
+    width: 100% !important;              /* Spans 100% screen width */
+    padding-left: 0 !important;          /* Aligns text flush on the left margin */
+    padding-right: 20px !important;      /* Creates breathing room on the right so text isn't cut off */
+    box-sizing: border-box !important;   /* Ensures right padding is contained within 100% width */
+    overflow-wrap: break-word !important;/* Forces long words to wrap cleanly */
+    margin-top: -45px !important;        /* Pulls paragraphs up under the header/image row */
+    order: 3 !important;                 /* Forces paragraph wrapper to sit third (bottom row) */
+  }
+
+  /* Target the actual paragraph tags inside the body copy wrapper */
+  .intro-col-right p {
+    text-align: justify !important;      /* <--- This fully justifies the body text across both margins */
+    text-justify: inter-word !important; /* Ensures clean spacing between justified words */
+  }
+
+  /* Targets any link or inline call-to-action text at the bottom of the intro */
+  .intro-col-right a,
+  .intro-col-right span {
+    font-size: 11.6px !important;
+  }
+
+/* ==========================================
+   [SECTION 4]: ABOUT US BAND & WHY CHOOSE US
+   ========================================== */
+
+/* 1. Standard section padding for consistent left & right margins */
+.about-band.section-pad {
+  margin-top: -45px !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+}
+
+.about-band .section-label {
+  padding-left: 0 !important;
+}
+
+/* 2. Side-by-side flex alignment */
+.about-grid {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  align-items: stretch !important; /* Stretches both sides evenly */
+  gap: 16px !important;
+  width: 100% !important;
+}
+
+/* 3. Image Container: Uniform 4px rounded corners on all sides */
+.about-image {
+  width: 52% !important;
+  max-width: 52% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.about-image img {
+  width: 100% !important;
+  height: 70% !important;
+  min-height: 230px !important;
+  object-fit: cover !important;
+  border-radius: 4px !important;
+  object-position: bottom center !important; /* Keeps top cropped off */
+  margin: 0 !important;
+}
+
+/* 4. Right Heading: Larger font size matching image height */
+.about-grid h2 {
+  width: 38% !important;
+  flex: 1 !important;
+  font-size: 26px !important;
+  line-height: 1.1 !important;
+  text-align: left !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important; /* Pulls text straight to top */
+  align-self: flex-start !important;      /* Ensures container locks to top edge */
+}
+
+/* 5. Body copy underneath */
+.about-grid .body-copy {
+  width: 100% !important;
+  padding-left: 0 !important;
+  padding-right: 2px !important;     /* Creates right breathing room */
+  box-sizing: border-box !important;  /* Keeps padding within 100% width */
+  overflow-wrap: break-word !important;/* Prevents text overflow clipping */
+  margin-top: -30px !important;
+}
+
+/* Fully justifies the body paragraphs in Section 4 */
+.about-grid .body-copy p {
+  text-align: justify !important;     /* Aligns text evenly across both margins */
+  text-justify: inter-word !important;/* Cleans up word spacing */
+}
+
+.why-head {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important; 
+  width: 100% !important;
+}
+
+.benefits {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 10px !important; /* los dit so */
+}
+
+/* Benefit Cards Styling */
+.benefits article {
+  padding: 10px 16px !important;
+  border-radius: 12px !important;
+  margin-bottom: 0 !important;
+  height: auto !important;
+  min-height: auto !important;
+  overflow: hidden !important;
+  font-size: 0 !important;             /* Hides raw text numbers (01, 02) on mobile */
+  line-height: 0 !important;
+}
+
+.benefits h3 {
+  font-size: 15px !important;
+  line-height: 1.2 !important;
+  margin: 0 0 4px 0 !important;        /* Pulls heading flush to top of card */
+  padding: 0 !important;
+}
+
+.benefits p {
+  font-size: 12.5px !important;
+  line-height: 1.35 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Optional: Hides numbers if they are wrapped in tags (span/small/number) */
+.benefits article span,
+.benefits article small,
+.benefits article .number,
+.benefits article .benefit-num {
+  display: none !important;
+}
+
+  /* ==========================================
+     [SECTION 5]: THE PROCESS SECTION
+     ========================================== */
+  .steps {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .steps article {
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .steps h3 {
+    font-size: 16px;
+    margin: 8px 0 4px;
+  }
+
+  .steps p {
+    font-size: 13px;
+  }
+
+
+  /* ==========================================
+     [SECTION 6]: PORTFOLIO / SELECTED WORK
+     ========================================== */
+  .portfolio-head {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+  }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
   .work-large {
     grid-column: span 1;
   }
-  
+
   .work-large img, 
   .work img {
-    height: 120px;
-  }
-
-  .work-large img {
-    height: 120px;
-  }
-
-  .work-image.is-expanded img,
-  .work-large .work-image.is-expanded img {
-    height: auto;
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
   }
 
   .work h3 {
-    font-size: 14px;
+    font-size: 16px;
+    margin-top: 10px;
   }
 
   .work p {
-    font-size: 12px;
+    font-size: 13px;
   }
-  
+
+
+  /* ==========================================
+     [SECTION 7]: TESTIMONIALS (KIND WORDS)
+     ========================================== */
   .quote-grid {
+    display: grid;
     grid-template-columns: 1fr;
-    gap: 30px;
+    gap: 24px;
   }
 
-  blockquote {
-    font-size: 14px;
+
+  /* ==========================================
+     [SECTION 8]: SERVICE PACKAGES & PRICING
+     ========================================== */
+  .services-head {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
   }
 
-  cite {
-    font-size: 12px;
-  }
-  
   .pricing {
+    display: grid;
     grid-template-columns: 1fr;
-    gap: 16px;
-  }
-  
-  .price-card {
-    min-height: auto;
-    padding: 16px;
+    gap: 20px;
   }
 
-  .price-card span.price-number {
-    font-size: 11px;
+  .price-card {
+    padding: 24px;
+    min-height: auto;
   }
 
   .price-card h3 {
     font-size: 22px;
-    margin: 20px 0 6px;
+    margin: 12px 0 6px;
   }
 
   .price-card strong {
-    font-size: 16px;
-    margin-bottom: 10px;
+    font-size: 18px;
+    margin-bottom: 12px;
   }
 
   .price-card p {
-    font-size: 12px;
-    margin-bottom: 10px;
-    max-width: 100%;
-  }
-
-  .price-card a {
-    font-size: 10px;
-  }
-  
-  .commerce-note {
-    display: block;
-    transform: none;
-    padding-top: 20px;
-    font-size: 13px;
-  }
-
-  .commerce-note b {
-    transform: none;
-    font-size: 16px;
-    margin-bottom: 10px;
-    display: block;
-  }
-  
-  .commerce-note span {
-    display: block;
-    margin-top: 0;
-    font-size: 12px;
-  }
-  
-  .faq-layout h2 {
-    margin-bottom: 35px;
-  }
-
-  .faq-list {
-    flex-direction: column;
-  }
-
-  details summary {
-    font-size: 13px;
-    padding: 12px 0;
-  }
-
-  details p {
-    font-size: 12px;
-    margin: 12px 0;
-  }
-  
-  .enquiry form {
-    margin-top: 35px;
-  }
-
-  .enquiry form label {
-    font-size: 12px;
-    margin-bottom: 14px;
-  }
-
-  .enquiry form input,
-  .enquiry form select,
-  .enquiry form textarea {
-    font-size: 12px;
-    padding: 10px;
-  }
-
-  .button {
-    font-size: 10px;
-    padding: 16px 16px;
-    gap: 16px;
-    margin: 14px 0 14px;
-  }
-  
-  footer {
-    display: block;
-    padding: 40px 7vw;
-    font-size: 11px;
-  }
-
-  footer .logo-main {
-    font-size: 16px;
-  }
-
-  footer .logo-sub {
-    font-size: 20px;
-  }
-  
-  footer p {
-    margin: 16px 0;
-  }
-
-  footer a {
-    font-size: 10px;
-  }
-}
-
-/* ==========================================
-   MOBILE BREAKPOINT (480px and below)
-   ========================================== */
-@media (max-width: 480px) {
-  body {
-    font-size: 14px;
-  }
-
-  .site-header {
-    padding: 10px 4vw;
-  }
-
-  .site-header .logo-main {
-    font-size: 16px;
-  }
-
-  .site-header .logo-sub {
-    font-size: 18px;
-  }
-
-  .nav {
-    top: 55px;
-    padding: 16px 6vw;
-    gap: 12px;
-    font-size: 11px;
-  }
-
-  .section-pad {
-    padding: 45px 5vw;
-  }
-
-  .section-label {
-    font-size: 8px;
-    letter-spacing: 0.06em;
-    margin-bottom: 20px;
-  }
-
-  .eyebrow {
-    font-size: 8px;
-  }
-
-  .hero {
-    padding-top: 70px;
-    min-height: 500px;
-  }
-
-  .hero-logo .logo-main {
-    font-size: 32px;
-    letter-spacing: 5px;
-  }
-
-  .hero-logo .logo-sub {
-    font-size: 40px;
-  }
-
-  .hero h1 {
-    font-size: clamp(20px, 4.5vw, 30px);
-    margin-top: 12px;
-    line-height: 1;
-  }
-
-  .hero-intro {
-    font-size: 12px;
-    margin-bottom: 10px;
-  }
-
-  .hero-bottom {
-    left: 5vw;
-    right: 5vw;
-    font-size: 8px;
-    gap: 12px;
-    bottom: 25px;
-  }
-
-  .display {
-    font-size: clamp(20px, 3.5vw, 32px);
-    line-height: 1.1;
-  }
-
-  .intro-3-columns {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .intro-col-left .display {
-    font-size: clamp(20px, 3.5vw, 32px);
-  }
-
-  .body-copy {
-    margin-top: 20px;
-  }
-
-  .body-copy p {
     font-size: 13px;
     margin-bottom: 12px;
   }
 
-  .about-grid h2,
-  .why h2,
-  .process h2,
-  .portfolio h2,
-  .services h2,
-  .faq h2,
-  .enquiry h2 {
-    font-size: clamp(20px, 3.5vw, 30px);
-    line-height: 1.1;
-  }
-
-  .why-head {
-    margin-bottom: 30px;
-  }
-
-  .benefits {
-    gap: 0;
-  }
-
-  .steps,
-  .quote-grid,
-  .pricing,
-  .work-grid {
-    gap: 12px;
-  }
-
-  .steps,
-  .quote-grid,
-  .pricing {
-    grid-template-columns: 1fr;
-  }
-
-  .work-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .benefits article,
-  .steps article {
-    padding: 14px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, .65);
-  }
-
-  .benefits b,
-  .steps span {
-    font-size: 9px;
-  }
-
-  .benefits h3,
-  .steps h3 {
-    font-size: 12px;
-    margin-top: 8px;
-    margin-bottom: 4px;
-  }
-
-  .benefits p,
-  .steps p {
-    font-size: 11px;
-  }
-
-  .about-image img {
-    height: 220px;
-    margin-top: 25px;
-  }
-
-  .work-large img,
-  .work img {
-    height: 120px;
-  }
-
-  .work-large img {
-    height: 120px;
-  }
-
-  .work h3 {
-    font-size: 13px;
-  }
-
-  .work p {
-    font-size: 11px;
-  }
-
-  blockquote {
-    font-size: 13px;
-    line-height: 1.5;
-  }
-
-  cite {
-    font-size: 11px;
-    display: block;
-    margin-top: 8px;
-  }
-
-  .price-card {
-    padding: 14px;
-  }
-
-  .price-card span.price-number {
-    font-size: 10px;
-  }
-
-  .price-card h3 {
-    font-size: 18px;
-    margin: 14px 0 4px;
-  }
-
-  .price-card strong {
-    font-size: 14px;
-    margin-bottom: 8px;
-  }
-
-  .price-card p {
-    font-size: 11px;
-    margin-bottom: 8px;
-  }
-
-  .price-card a {
-    font-size: 9px;
-    padding-top: 10px;
-  }
-
   .features-list {
-    font-size: 11px;
-    line-height: 1.3;
-    margin: 8px 0;
-  }
-
-  .features-list p {
-    font-size: 11px;
-    margin-bottom: 4px;
-  }
-
-  .features-list ul {
-    padding-left: 16px;
+    font-size: 12px;
+    line-height: 1.5;
+    margin: 12px 0;
   }
 
   .features-list li {
-    margin-bottom: 2px;
+    margin-bottom: 6px;
   }
 
-  .commerce-note {
-    padding-top: 16px;
-    font-size: 12px;
-  }
 
-  .commerce-note b {
-    font-size: 14px;
-    margin-bottom: 8px;
-  }
-
-  .commerce-note span {
-    font-size: 11px;
-  }
-
-  .pricing-note {
-    font-size: 11px;
-    margin: 16px 0;
-  }
-
-  .faq-layout h2 {
-    margin-bottom: 24px;
+  /* ==========================================
+     [SECTION 9]: FAQ SECTION
+     ========================================== */
+  .faq-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 24px !important;
   }
 
   details summary {
-    font-size: 12px;
-    padding: 10px 0;
+    font-size: 14px;
+    padding: 14px 0;
   }
 
   details p {
-    font-size: 11px;
+    font-size: 13px;
     margin: 10px 0;
   }
 
-  .enquiry form {
-    margin-top: 25px;
+
+  /* ==========================================
+     [SECTION 10]: ENQUIRY FORM & CONTACT
+     ========================================== */
+  .enquiry {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 30px !important;
   }
 
   .enquiry form label {
-    font-size: 11px;
-    margin-bottom: 10px;
+    font-size: 12px;
   }
 
   .enquiry form input,
   .enquiry form select,
   .enquiry form textarea {
-    font-size: 11px;
-    padding: 8px;
+    font-size: 14px;
+    padding: 12px;
   }
 
   .button {
-    font-size: 9px;
-    padding: 12px 12px;
-    gap: 12px;
-    margin: 10px 0 10px;
+    font-size: 11px;
+    padding: 14px 20px;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
   }
 
+
+  /* ==========================================
+     [SECTION 11]: FOOTER
+     ========================================== */
   footer {
-    padding: 30px 5vw;
-    font-size: 10px;
-  }
-
-  footer .logo-main {
-    font-size: 14px;
-  }
-
-  footer .logo-sub {
-    font-size: 18px;
-  }
-
-  footer p {
-    margin: 12px 0;
-  }
-
-  footer a {
-    font-size: 9px;
-  }
-}
-
-/* Maak die opskrif en die paragraaf in die portfolio-seksie wit */
-.portfolio-head h2,
-.portfolio-head h2 em,
-.portfolio-head p {
-  color: #ffffff !important;
-}
-.portfolio-head h2,
-.portfolio-head h2 em,
-.portfolio-head p {
-  color: #ffffff !important;
-}
+    display: block;
+    padding:
