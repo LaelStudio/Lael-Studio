@@ -32,6 +32,68 @@ body {
   overflow-x: hidden;
 }
 
+body.currency-selection-open {
+  overflow: hidden;
+  touch-action: none;
+}
+
+.currency-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.62);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.currency-overlay[hidden] {
+  display: none;
+}
+
+.currency-dialog {
+  width: min(100%, 560px);
+  padding: clamp(28px, 6vw, 56px);
+  background: #ffffff;
+  color: var(--ink);
+  text-align: center;
+  box-shadow: 0 18px 70px rgba(32, 33, 29, 0.12);
+}
+
+.currency-dialog h1 {
+  margin: 0 0 30px;
+  font: 500 clamp(26px, 5vw, 38px) / 1.15 var(--serif);
+}
+
+.currency-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.currency-option {
+  min-height: 72px;
+  border: 1px solid rgba(32, 33, 29, 0.2);
+  border-radius: 0;
+  background: #ffffff;
+  color: var(--ink);
+  font: 500 14px var(--mono);
+  cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+
+.currency-option.is-selected {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: #ffffff;
+}
+
+.currency-option:focus-visible {
+  outline: none;
+}
+
 
 /* ==========================================
    2. HEADER & NAVIGATION
@@ -125,10 +187,16 @@ a {
 }
 
 .menu-toggle {
-  display: none;
-  background: none;
-  border: 0;
-  font-size: 22px;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  font-size: 26px;
+  color: #000000 !important;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 10001;
 }
 
 
@@ -430,23 +498,51 @@ h2 em {
 
 .benefits h3 {
   font: 500 18px var(--serif);
-  margin: 40px 0 10px;
+  margin: 20px 0 0px;
 }
 
 .benefits p {
   font-size: 13px;
 }
 
+@media (min-width: 769px) {
+  .benefits article {
+    min-height: 0;
+    padding: 14px 18px 12px;
+  }
+
+  .benefits h3 {
+    margin: 8px 0 4px;
+  }
+
+  .benefits p {
+    margin: 0;
+    line-height: 1.35;
+  }
+}
+
 .process {
   --process-overlay-opacity: 0.3;
-  --process-glass-blur: 4px;
+  --process-glass-blur: px;
   position: relative;
   isolation: isolate;
+  overflow: hidden;
   background-color: #521a00;
-  background-image: url('process.jpeg');
-  background-size: cover;
-  background-position: center;
   color: #ffffff;
+}
+
+.process-background {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -2;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
 }
 
 .process::before {
@@ -489,25 +585,93 @@ h2 em {
 }
 
 .portfolio {
-  background: #442916;
+  /* Adjust this value: negative moves the heading/copy up; positive moves it down. */
+  --portfolio-head-offset-y: 0px;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: #442916;
+  color: #ffffff;
+}
+
+.portfolio-background {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -2;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+}
+
+.portfolio::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgba(255, 255, 255, 0.22);
+  content: '';
+  pointer-events: none;
 }
 
 .portfolio .section-label {
   color: #ffffff;
 }
 
+.portfolio .section-label,
+.portfolio h2,
+.portfolio p,
+.portfolio h3 {
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.7);
+}
+
 .portfolio-head {
   margin-bottom: 55px;
   grid-template-columns: 1.6fr 1fr !important; /* Maak die linkerkolom wyer sodat die teks langer lê */
   gap: 6vw !important;
+  transform: translateY(var(--portfolio-head-offset-y));
 }
 
 .portfolio-head h2 {
   max-width: 100% !important;
+  grid-column: 1;
+  grid-row: 1;
+  font-size: 50px !important;
 }
 
 .portfolio-head p {
   max-width: auto;
+}
+
+.portfolio-note {
+  margin: 0 20 0 0;
+  text-align: right;
+  font-size: 14px;
+}
+
+.portfolio-description {
+  margin: 0;
+  text-align: right;
+  font-size: 14px;
+}
+
+@media (min-width: 769px) {
+  .portfolio-head h2 {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .portfolio-copy {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
 }
 
 .work-grid {
@@ -519,52 +683,152 @@ h2 em {
 
 .work-image {
   position: relative;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
 }
 
 .work img {
   width: 100%;
-  height: 285px;
+  height: 100%;
   object-fit: cover;
   display: block;
 }
 
 .work-large img {
-  height: 285px;
+  height: 100%;
 }
 
-.work-image.is-expanded img {
-  height: auto;
-  object-fit: contain;
-}
-
-.expand-work {
+.work-view {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
   width: 100%;
   border: 0;
-  border-top: 1px solid rgba(255, 255, 255, .35);
-  padding: 11px 0 10px;
-  background: #ffffff;
-  color: #020202;
-  font: 11px var(--mono);
-  text-align: left;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.58);
+  color: var(--ink);
+  font: 12px var(--mono);
   text-transform: uppercase;
+  cursor: zoom-in;
+  transition: background-color 180ms ease;
+}
+
+.work-view span {
+  border-bottom: 1px solid rgba(32, 33, 29, 0.7);
+  padding-bottom: 5px;
+}
+
+.work-view:hover,
+.work-view:focus-visible {
+  background: rgba(255, 255, 255, 0.74);
+}
+
+.work-view:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: -5px;
+}
+
+body.work-lightbox-open {
+  overflow: hidden;
+}
+
+.work-lightbox {
+  width: min(100vw, 1440px);
+  height: min(100dvh, 1000px);
+  max-width: none;
+  max-height: none;
+  margin: auto;
+  border: 0;
+  padding: 20px;
+  overflow: hidden;
+  background: transparent;
+  color: #ffffff;
+}
+
+.work-lightbox::backdrop {
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.work-lightbox-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.work-lightbox-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex: 0 0 auto;
+  padding-bottom: 14px;
+}
+
+.work-lightbox-title {
+  margin: 0 auto 0 0;
+  color: #ffffff;
+  font: 14px var(--mono);
+}
+
+.work-lightbox-toolbar button {
+  min-width: 40px;
+  height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 0;
+  padding: 0 10px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  font: 14px var(--mono);
   cursor: pointer;
 }
 
-.expand-work span {
-  float: right;
-  font-size: 16px;
-  line-height: 11px;
+.work-lightbox-toolbar .work-lightbox-close {
+  font: 28px / 1 var(--sans);
 }
 
-.expand-work:hover,
-.expand-work:focus-visible {
-  background: #7c5441;
+.work-lightbox-toolbar button:hover,
+.work-lightbox-toolbar button:focus-visible {
+  background: #ffffff;
+  color: #111111;
+}
+
+.work-lightbox-stage {
+  display: grid;
+  place-items: center;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+.work-lightbox-image {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transform: scale(1);
+  transform-origin: center;
+  transition: transform 160ms ease;
 }
 
 .work h3 {
   font: 500 20px var(--serif);
   margin: 12px 0 0;
    color: #ffffff;
+}
+
+.work p,
+.portfolio-head p,
+.portfolio h2,
+.portfolio h2 em {
+  color: #ffffff !important;
 }
 
 .work p {
@@ -631,6 +895,7 @@ cite {
 }
 
 .price-card {
+  position: relative;
   background: rgba(255, 255, 255, .78);
   border: 1px solid rgba(255, 255, 255, 0);
   backdrop-filter: blur(1px);
@@ -657,6 +922,47 @@ cite {
   font: 500 18px var(--serif);
   text-align: left;
   margin-bottom: 10px;
+}
+
+.price-card .package-price {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.package-price.has-discount .package-price-original {
+  color: #555555;
+  text-decoration: line-through;
+}
+
+.package-price-sale {
+  color: var(--red);
+  font-weight: 600;
+}
+
+.package-price-sale[hidden] {
+  display: none;
+}
+
+.discount-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: none;
+  place-items: center;
+  width: 68px;
+  aspect-ratio: 1;
+  padding: 8px;
+  background: var(--red);
+  color: #ffffff;
+  font: 500 9px / 1.15 var(--mono);
+  text-align: center;
+  clip-path: polygon(50% 0%, 59% 8%, 72% 2%, 77% 14%, 90% 10%, 90% 23%, 100% 30%, 92% 40%, 100% 50%, 92% 60%, 98% 73%, 86% 77%, 90% 90%, 77% 90%, 70% 100%, 60% 92%, 50% 100%, 40% 92%, 28% 98%, 23% 86%, 10% 90%, 10% 77%, 0% 70%, 8% 60%, 0% 50%, 8% 40%, 2% 28%, 14% 23%, 10% 10%, 23% 10%, 30% 0%, 40% 8%);
+}
+
+.discount-badge.is-active {
+  display: grid;
 }
 
 .price-card p {
@@ -904,6 +1210,41 @@ textarea {
   color: #ffffff;
 }
 
+.enquiry form select {
+  min-height: 42px;
+  border: 0 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.6) !important;
+  border-radius: 0;
+  padding: 10px 0 !important;
+  background-color: transparent !important;
+  color: #ffffff !important;
+  font: 12px var(--sans) !important;
+}
+
+.enquiry form select.has-discount-selection {
+  color: var(--red) !important;
+  font-weight: 600 !important;
+}
+
+.enquiry form select option {
+  background-color: #ffffff;
+  color: var(--ink);
+  font-size: 12px;
+}
+
+.enquiry form input:autofill,
+.enquiry form textarea:autofill,
+.enquiry form select:autofill,
+.enquiry form input:-webkit-autofill,
+.enquiry form textarea:-webkit-autofill,
+.enquiry form select:-webkit-autofill {
+  -webkit-text-fill-color: #ffffff !important;
+  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+  transition: background-color 9999s ease-out 0s;
+}
+
 .enquiry form input::placeholder,
 .enquiry form textarea::placeholder {
   color: #ffffff;
@@ -1138,12 +1479,49 @@ footer > div {
 
 
   /* ==========================================
-     [SECTION 1]: HEADER & MOBILE DROPDOWN MENU
+     [SECTION 1]: STICKY TRANSPARENT HEADER & QUICK LINKS
      ========================================== */
-  .site-header {
-    height: auto;
-    padding: 14px 20px;
-    background-color: var(--cream);
+ .site-header {
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    z-index: 9999 !important;
+    height: auto !important;
+    padding: 12px 20px !important;
+    background: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+  }
+
+  .nav-container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+  }
+
+  .nav-brand-group {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+  }
+
+  /* Quick links right next to the brand name on mobile */
+  .quick-links {
+    display: flex !important;
+    gap: 6px !important;
+  }
+
+  .quick-links a {
+    font-size: 11px !important;
+    text-decoration: none !important;
+    color: #333 !important;
+    padding: 3px 6px !important;
+    background: rgba(0, 0, 0, 0.04) !important;
+    border-radius: 10px !important;
   }
 
   .site-header .logo-main {
@@ -1154,28 +1532,63 @@ footer > div {
     font-size: 20px;
   }
 
-  .nav {
-    display: none;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    right: 0;
-    background: var(--cream);
-    padding: 24px 24px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-    border-bottom: 1px solid var(--line);
-    font-size: 14px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  .site-header .nav {
+    display: none !important;
   }
 
-  .nav.open {
-    display: flex;
-  }
-
+  /* Hamburger Menu Button */
   .menu-toggle {
-    display: block;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    width: 24px !important;
+    height: 18px !important;
+    background: transparent !important;
+    border: none !important;
+    cursor: pointer !important;
+    font-size: 0 !important;
+  }
+
+  .menu-toggle span {
+    width: 100% !important;
+    height: 2px !important;
+    background-color: #111 !important;
+    border-radius: 2px !important;
+  }
+
+  /* Mobile Dropdown Overlay Menu */
+  .mobile-menu {
+    display: none;
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    width: 100% !important;
+    background: rgba(255, 255, 255, 0.96) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+    padding: 12px 0 !important;
+    max-height: 80vh !important;
+    overflow-y: auto !important;
+  }
+
+  .mobile-menu.active {
+    display: block !important;
+  }
+
+  .mobile-menu ul {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .mobile-menu li a {
+    display: block !important;
+    padding: 10px 20px !important;
+    font-size: 14px !important;
+    color: #222 !important;
+    text-decoration: none !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03) !important;
   }
 
 
@@ -1217,232 +1630,218 @@ footer > div {
   }
 
 
-/* ==========================================
-     [SECTION 3]: WELCOME INTRO (FULL CSS CODE)
+  /* ==========================================
+     [SECTION 3]: WELCOME INTRO
      ========================================== */
-
-  /* Set identical outer padding on the left and right sides of Section 3 */
   .intro-content.section-pad,
   .intro-content {
-    padding-left: 24px !important;       /* Sets 24px outer margin space on the left side */
-    padding-right: 24px !important;      /* Sets 24px outer margin space on the right side */
+    padding-left: 24px !important;      
+    padding-right: 24px !important;     
   }
 
-  /* Reset section label padding so text aligns flush to the outer edge */
   .intro-content .section-label {
-    padding-left: 0 !important;          /* Keeps "01 / WELCOME" label flush to the left boundary */
+    padding-left: 0 !important;         
   }
 
-  /* 1. Main Flex Container holding the heading, photo, and body text */
   .intro-3-columns {
-    display: flex !important;            /* Activates flexbox layout engine for child columns */
-    flex-direction: row !important;      /* Arranges child columns horizontally in a row */
-    flex-wrap: wrap !important;          /* Allows order 3 (body text) to break onto a new row below */
-    align-items: stretch !important;     /* Stretches text and image columns to match vertical heights */
-    justify-content: flex-start !important; /* Lines up flex items starting from the left edge */
-    gap: 14px !important;                /* Sets exact horizontal gap between text column and image */
-    width: 100% !important;              /* Ensures flex container occupies 100% of printable width */
+    display: flex !important;           
+    flex-direction: row !important;     
+    flex-wrap: wrap !important;         
+    align-items: stretch !important;    
+    justify-content: flex-start !important; 
+    gap: 14px !important;               
+    width: 100% !important;             
   }
 
-  /* 2. Heading Column Wrapper (LEFT SIDE) */
   .intro-col-left {
-    width: 40% !important;               /* Sets column width percentage */
-    max-width: 40% !important;           /* Restricts column width from exceeding 46% */
-    flex: 0 0 40% !important;            /* Hard-locks column flex basis (no grow, no shrink) at 46% */
-    order: 1 !important;                 /* Positions heading column first in flex row (left side) */
-    margin: 0 !important;                /* Removes browser default div margin */
-    padding: 0 !important;               /* Removes browser default div padding */
-    display: flex !important;            /* Turns heading wrapper div into an internal flexbox */
-    flex-direction: column !important;   /* Stacks internal heading text elements vertically */
-    justify-content: flex-start !important; /* Pulls internal heading text flush to top edge */
-    align-self: flex-start !important;   /* Aligns top edge of heading wrapper with top of image */
+    width: 40% !important;              
+    max-width: 40% !important;          
+    flex: 0 0 40% !important;           
+    order: 1 !important;                
+    margin: 0 !important;               
+    padding: 0 !important;              
+    display: flex !important;           
+    flex-direction: column !important;  
+    justify-content: flex-start !important; 
+    align-self: flex-start !important;  
   }
 
-  /* Typography for Heading Text inside Left Column */
   .intro-col-left h2,
   .intro-col-left .display {
-    font-size: 29.5px !important;          /* Sets heading font size to match Section 4 */
-    line-height: 1.05 !important;         /* Sets tight vertical line spacing matching Section 4 */
-    text-align: right !important;        /* Right-aligns text to hug against the left edge of photo */
-    margin: 0 !important;                /* Strips browser default heading margin */
-    padding: 0 !important;               /* Strips browser default heading padding */
+    font-size: 29.5px !important;         
+    line-height: 1.05 !important;       
+    text-align: right !important;       
+    margin: 0 !important;               
+    padding: 0 !important;              
   }
 
-  /* Target emphasis tag ("Perfect.") inside heading */
   .intro-col-left h2 em,
   .intro-col-left .display em {
-    font-size: 27.5px !important;          /* Keeps italicized word locked at 26px font size */
-    font-style: italic !important;       /* Applies brand accent italic styling */
+    font-size: 27.5px !important;         
+    font-style: italic !important;      
   }
 
-  /* 3. Image Column Wrapper (RIGHT SIDE) */
   .intro-col-image {
-    width: 54% !important;               /* Sets column width percentage */
-    max-width: 54% !important;           /* Restricts column width from exceeding 46% */
-    flex: 0 0 54% !important;            /* Hard-locks column flex basis (no grow, no shrink) at 46% */
-    order: 2 !important;                 /* Positions image column second in flex row (right side) */
-    margin-left: auto !important;        /* Pushes image column flush to the right outer margin */
-    margin-top: 0 !important;            /* Resets top margin on image container wrapper */
-    margin-right: 10 !important;          /* Resets right margin on image container wrapper */
-    margin-bottom: 0 !important;         /* Resets bottom margin on image container wrapper */
-    padding: 0 !important;               /* Removes browser default div padding */
+    width: 54% !important;              
+    max-width: 54% !important;          
+    flex: 0 0 54% !important;           
+    order: 2 !important;                
+    margin-left: auto !important;       
+    margin-top: 0 !important;           
+    margin-right: 0 !important;         
+    margin-bottom: 0 !important;        
+    padding: 0 !important;              
   }
 
-  /* Image element styling inside Right Column */
   .intro-col-image img {
-    width: 95% !important;              /* Forces image to fill 100% width of right column */
-    height: 70% !important;             /* Stretches image height to match text column height */
-    min-height: 185px !important;        /* Ensures image maintains minimum 220px vertical height */
-    object-fit: cover !important;        /* Scales photo to fill frame without distortion */
-    border-radius: 4px !important;       /* Applies 4px rounded corner radius matching Section 4 */
-    object-position: center !important; /* Focuses cropping frame on bottom portion of image */
-    margin: 0 !important;                /* Strips browser default image margins */
+    width: 95% !important;              
+    height: 70% !important;             
+    min-height: 185px !important;       
+    object-fit: cover !important;       
+    border-radius: 4px !important;      
+    object-position: center !important; 
+    margin: 0 !important;               
   }
 
-  /* 4. Paragraph Body Copy Wrapper (BOTTOM ROW) */
-  /* 4. Paragraph Body Copy Wrapper (BOTTOM ROW) */
   .intro-col-right {
-    width: 100% !important;              /* Spans 100% screen width */
-    padding-left: 0 !important;          /* Aligns text flush on the left margin */
-    padding-right: 20px !important;      /* Creates breathing room on the right so text isn't cut off */
-    box-sizing: border-box !important;   /* Ensures right padding is contained within 100% width */
-    overflow-wrap: break-word !important;/* Forces long words to wrap cleanly */
-    margin-top: -45px !important;        /* Pulls paragraphs up under the header/image row */
-    order: 3 !important;                 /* Forces paragraph wrapper to sit third (bottom row) */
+    width: 100% !important;             
+    padding-left: 0 !important;         
+    padding-right: 20px !important;     
+    box-sizing: border-box !important;  
+    overflow-wrap: break-word !important;
+    margin-top: -45px !important;       
+    order: 3 !important;                
   }
 
-  /* Target the actual paragraph tags inside the body copy wrapper */
   .intro-col-right p {
-    text-align: justify !important;      /* <--- This fully justifies the body text across both margins */
-    text-justify: inter-word !important; /* Ensures clean spacing between justified words */
+    text-align: justify !important;     
+    text-justify: inter-word !important; 
   }
 
-  /* Targets any link or inline call-to-action text at the bottom of the intro */
   .intro-col-right a,
   .intro-col-right span {
     font-size: 11.6px !important;
   }
 
-/* ==========================================
-   [SECTION 4]: ABOUT US BAND & WHY CHOOSE US
-   ========================================== */
 
-/* 1. Standard section padding for consistent left & right margins */
-.about-band.section-pad {
-  margin-top: -45px !important;
-  padding-left: 24px !important;
-  padding-right: 24px !important;
-}
+  /* ==========================================
+     [SECTION 4]: ABOUT US BAND & WHY CHOOSE US
+     ========================================== */
+  .about-band.section-pad {
+    margin-top: -45px !important;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
 
-.about-band .section-label {
-  padding-left: 0 !important;
-}
+  .about-band .section-label {
+    padding-left: 0 !important;
+  }
 
-/* 2. Side-by-side flex alignment */
-.about-grid {
-  display: flex !important;
-  flex-direction: row !important;
-  flex-wrap: wrap !important;
-  align-items: stretch !important; /* Stretches both sides evenly */
-  gap: 16px !important;
-  width: 100% !important;
-}
+  .about-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: stretch !important; 
+    gap: 16px !important;
+    width: 100% !important;
+  }
 
-/* 3. Image Container: Uniform 4px rounded corners on all sides */
-.about-image {
-  width: 52% !important;
-  max-width: 52% !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
+  .about-image {
+    width: 52% !important;
+    max-width: 52% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
 
-.about-image img {
-  width: 100% !important;
-  height: 70% !important;
-  min-height: 230px !important;
-  object-fit: cover !important;
-  border-radius: 4px !important;
-  object-position: bottom center !important; /* Keeps top cropped off */
-  margin: 0 !important;
-}
+  .about-image img {
+    width: 100% !important;
+    height: 70% !important;
+    min-height: 230px !important;
+    object-fit: cover !important;
+    border-radius: 4px !important;
+    object-position: bottom center !important; 
+    margin: 0 !important;
+  }
 
-/* 4. Right Heading: Larger font size matching image height */
-.about-grid h2 {
-  width: 38% !important;
-  flex: 1 !important;
-  font-size: 26px !important;
-  line-height: 1.1 !important;
-  text-align: left !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: flex-start !important; /* Pulls text straight to top */
-  align-self: flex-start !important;      /* Ensures container locks to top edge */
-}
+  .about-grid h2 {
+    width: 38% !important;
+    flex: 1 !important;
+    font-size: 26px !important;
+    line-height: 1.1 !important;
+    text-align: left !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important; 
+    align-self: flex-start !important;      
+  }
 
-/* 5. Body copy underneath */
-.about-grid .body-copy {
-  width: 100% !important;
-  padding-left: 0 !important;
-  padding-right: 2px !important;     /* Creates right breathing room */
-  box-sizing: border-box !important;  /* Keeps padding within 100% width */
-  overflow-wrap: break-word !important;/* Prevents text overflow clipping */
-  margin-top: -30px !important;
-}
+  .about-grid .body-copy {
+    width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 2px !important;    
+    box-sizing: border-box !important;  
+    overflow-wrap: break-word !important;
+    margin-top: -30px !important;
+  }
 
-/* Fully justifies the body paragraphs in Section 4 */
-.about-grid .body-copy p {
-  text-align: justify !important;     /* Aligns text evenly across both margins */
-  text-justify: inter-word !important;/* Cleans up word spacing */
-}
+  .about-grid .body-copy p {
+    text-align: justify !important;     
+    text-justify: inter-word !important;
+  }
 
-.why-head {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 10px !important; 
-  width: 100% !important;
-}
+  .why-head {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    margin-bottom: 18px !important;
+    width: 100% !important;
+  }
 
-.benefits {
-  display: grid !important;
-  grid-template-columns: 1fr !important;
-  gap: 10px !important; /* los dit so */
-}
+  .why-head p {
+    margin: 0 !important;
+  }
 
-/* Benefit Cards Styling */
-.benefits article {
-  padding: 10px 16px !important;
-  border-radius: 12px !important;
-  margin-bottom: 0 !important;
-  height: auto !important;
-  min-height: auto !important;
-  overflow: hidden !important;
-  font-size: 0 !important;             /* Hides raw text numbers (01, 02) on mobile */
-  line-height: 0 !important;
-}
+  .benefits {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
 
-.benefits h3 {
-  font-size: 15px !important;
-  line-height: 1.2 !important;
-  margin: 0 0 4px 0 !important;        /* Pulls heading flush to top of card */
-  padding: 0 !important;
-}
+  .benefits article {
+    padding: 10px 16px !important;
+    background: rgba(255, 255, 255, 0.74) !important;
+    border-radius: 12px !important;
+    margin-bottom: 0 !important;
+    height: auto !important;
+    min-height: auto !important;
+    overflow: hidden !important;
+    font-size: 0 !important;          
+    line-height: 0 !important;
+  }
 
-.benefits p {
-  font-size: 12.5px !important;
-  line-height: 1.35 !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
+  .benefits h3 {
+    font-size: 15px !important;
+    line-height: 1.2 !important;
+    margin: 0 0 4px 0 !important;        
+    padding: 0 !important;
+  }
 
-/* Optional: Hides numbers if they are wrapped in tags (span/small/number) */
-.benefits article span,
-.benefits article small,
-.benefits article .number,
-.benefits article .benefit-num {
-  display: none !important;
-}
+  .benefits p {
+    font-size: 12.5px !important;
+    line-height: 1.35 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .benefits article span,
+  .benefits article small,
+  .benefits article .number,
+  .benefits article .benefit-num {
+    display: none !important;
+  }
+
 
   /* ==========================================
      [SECTION 5]: THE PROCESS SECTION
@@ -1471,16 +1870,86 @@ footer > div {
   /* ==========================================
      [SECTION 6]: PORTFOLIO / SELECTED WORK
      ========================================== */
+  /* Mobile text positions: negative X/Y moves left/up; positive X/Y moves right/down. */
+  #portfolio {
+    --mobile-section-label-x: 0px;
+    --mobile-section-label-y: 0px;
+    --mobile-work-heading-x: 0px;
+    --mobile-work-heading-y: 0px;
+    --mobile-work-note-x: 0px;
+    --mobile-work-note-y: 0px;
+    --mobile-work-description-x: 0px;
+    --mobile-work-description-y: 0px;
+    --mobile-sunday-title-x: 0px;
+    --mobile-sunday-title-y: 0px;
+    --mobile-sunday-style-x: 0px;
+    --mobile-sunday-style-y: 0px;
+    --mobile-sunday-count-x: 0px;
+    --mobile-sunday-count-y: 0px;
+    --mobile-onda-title-x: 0px;
+    --mobile-onda-title-y: 0px;
+    --mobile-onda-style-x: 0px;
+    --mobile-onda-style-y: 0px;
+    --mobile-onda-count-x: 0px;
+    --mobile-onda-count-y: 0px;
+    --mobile-noma-title-x: 0px;
+    --mobile-noma-title-y: 0px;
+    --mobile-noma-style-x: 0px;
+    --mobile-noma-style-y: 0px;
+    --mobile-noma-count-x: 0px;
+    --mobile-noma-count-y: 0px;
+    --mobile-view-label-x: 0px;
+    --mobile-view-label-y: 0px;
+  }
+
+  /* Moves the 05 / Selected Work label. */
+  #portfolio > .section-label {
+    transform: translate(var(--mobile-section-label-x), var(--mobile-section-label-y));
+  }
+
   .portfolio-head {
     display: flex !important;
     flex-direction: column !important;
-    gap: 20px !important;
+    /* Adjust this gap to space the heading, PS note, and description apart. */
+    gap: 50px !important;
+  }
+
+  .portfolio-head h2 {
+    font-size: 35px !important;  
+    /* Moves the Look at some of our latest work heading.*/
+    transform: translate(var(--mobile-work-heading-x), var(--mobile-work-heading-y));
+  }
+
+  .portfolio-head .portfolio-copy {
+    order: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .portfolio-head .portfolio-note {
+    font-size: 15px;
+    text-align: left;
+    /* Moves the PS note. */
+    transform: translate(var(--mobile-work-note-x), var(--mobile-work-note-y));
+  }
+
+  .portfolio-head .portfolio-description {
+    font-size: 15px;
+    text-align: left;
+    /* Moves the Open up description. */
+    transform: translate(var(--mobile-work-description-x), var(--mobile-work-description-y));
   }
 
   .work-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 24px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 9px;
+    align-items: start;
+  }
+
+  .work-image {
+    aspect-ratio: 9 / 16;
   }
 
   .work-large {
@@ -1490,27 +1959,116 @@ footer > div {
   .work-large img, 
   .work img {
     width: 100%;
-    height: 220px;
+    height: 100%;
     object-fit: cover;
   }
 
   .work h3 {
-    font-size: 16px;
+    font-size: 12px;
+    line-height: 1.2;
+    /* Adjust margin-top to change the gap between each image and its title. */
     margin-top: 10px;
   }
 
   .work p {
-    font-size: 13px;
+    font-size: 10px;
+    line-height: 1;
+    /* Adjust margin-top to change the gap between each title and caption. */
+    margin: 4px 0;
+  }
+
+  .work-caption-separator {
+    display: none;
+  }
+
+  .work-caption-kind {
+    display: block;
+  }
+
+  .work-caption-count {
+    display: block;
+    margin-top: 3px;
+  }
+
+  /* Move each card's title, style caption, and section count independently. */
+  #portfolio .work-sunday h3 {
+    transform: translate(var(--mobile-sunday-title-x), var(--mobile-sunday-title-y));
+  }
+
+  #portfolio .work-sunday .work-caption-kind {
+    transform: translate(var(--mobile-sunday-style-x), var(--mobile-sunday-style-y));
+  }
+
+  #portfolio .work-sunday .work-caption-count {
+    transform: translate(var(--mobile-sunday-count-x), var(--mobile-sunday-count-y));
+  }
+
+  #portfolio .work-onda h3 {
+    transform: translate(var(--mobile-onda-title-x), var(--mobile-onda-title-y));
+  }
+
+  #portfolio .work-onda .work-caption-kind {
+    transform: translate(var(--mobile-onda-style-x), var(--mobile-onda-style-y));
+  }
+
+  #portfolio .work-onda .work-caption-count {
+    transform: translate(var(--mobile-onda-count-x), var(--mobile-onda-count-y));
+  }
+
+  #portfolio .work-noma h3 {
+    transform: translate(var(--mobile-noma-title-x), var(--mobile-noma-title-y));
+  }
+
+  #portfolio .work-noma .work-caption-kind {
+    transform: translate(var(--mobile-noma-style-x), var(--mobile-noma-style-y));
+  }
+
+  #portfolio .work-noma .work-caption-count {
+    transform: translate(var(--mobile-noma-count-x), var(--mobile-noma-count-y));
+  }
+
+  .work-view {
+    padding: 6px;
+    font-size: 9px;
+  }
+
+  .work-view span {
+    overflow-wrap: anywhere;
+    text-align: center;
+    /* Moves the Click to view text on each image. */
+    transform: translate(var(--mobile-view-label-x), var(--mobile-view-label-y));
   }
 
 
   /* ==========================================
      [SECTION 7]: TESTIMONIALS (KIND WORDS)
      ========================================== */
+  .testimonials h2 {
+    margin-bottom: 20px !important;
+  }
+
   .quote-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 12px;
+  }
+
+  .quote-grid blockquote {
+    border: 1px solid rgba(32, 33, 29, 0.1);
+    border-top: 1px solid rgba(32, 33, 29, 0.1);
+    border-radius: 8px;
+    padding: 14px 16px;
+    background: rgba(255, 255, 255, 0.72);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 5px 16px rgba(32, 33, 29, 0.08);
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .quote-grid cite {
+    margin-top: 12px;
+    font-size: 10px;
   }
 
 
@@ -1561,12 +2119,47 @@ footer > div {
 
 
   /* ==========================================
-     [SECTION 9]: FAQ SECTION
+     [SECTION 9]: FAQ SIDE-BY-SIDE HEADER & LIST
      ========================================== */
   .faq-layout {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .faq-intro {
     display: flex !important;
-    flex-direction: column !important;
-    gap: 24px !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 12px !important;
+    width: 100% !important;
+    margin-bottom: 24px !important;
+    text-align: left !important;
+  }
+
+  .faq-intro h2 {
+    width: 50% !important;
+    font-size: 28px !important;          
+    line-height: 1.05 !important;
+    margin: 0 !important;
+    text-align: left !important;
+  }
+
+  .faq-intro .section-label {
+    text-align: left !important;
+    display: block !important;
+  }
+
+  .faq-intro img {
+    width: 45% !important;
+    max-width: 170px !important;
+    height: auto !important;
+    border-radius: 6px !important;
+    object-fit: cover !important;
+    margin: 0 !important;
   }
 
   details summary {
@@ -1584,9 +2177,22 @@ footer > div {
      [SECTION 10]: ENQUIRY FORM & CONTACT
      ========================================== */
   .enquiry {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 100% !important;
+    position: relative !important;
+    z-index: 10 !important;
+    clear: both !important;
+    margin-top: 50px !important;
+    margin-bottom: 50px !important;
+  }
+
+  .enquiry form {
     display: flex !important;
     flex-direction: column !important;
-    gap: 30px !important;
+    width: 100% !important;
+    gap: 16px !important;
   }
 
   .enquiry form label {
@@ -1613,5 +2219,636 @@ footer > div {
      [SECTION 11]: FOOTER
      ========================================== */
   footer {
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    clear: both !important;
+    z-index: 10 !important;
+    padding: 40px 24px !important;
+    text-align: center !important;
+  }
+
+  /* ==========================================
+     [CRITICAL FIX]: UNTRAP ENQUIRY & FOOTER
+     ========================================== */
+  .faq-layout {
+    display: block !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .enquiry {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 100% !important;
+    position: relative !important;
+    z-index: 100 !important;
+    clear: both !important;
+    margin-top: 60px !important;
+    margin-bottom: 0 !important;
+  }
+
+  .enquiry form {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 16px !important;
+  }
+
+  footer {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    gap: 10px !important;
+    position: relative !important;
+    width: 100% !important;
+    clear: both !important;
+    z-index: 100 !important;
+    margin-top: 0 !important;
+    padding: 16px 20px !important;
+    text-align: left !important;
+  }
+
+  .footer-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .footer-main .logo {
+    flex: 0 0 auto;
+  }
+
+  .footer-main p {
+    max-width: 190px;
+    margin: 0 !important;
+    font-size: 10px;
+    line-height: 1.5;
+    text-align: right;
+  }
+
+  footer .footer-links {
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px 20px !important;
+    width: 100%;
+    text-decoration: none;
+  }
+
+  footer .footer-links a {
+    font-size: 11px;
+    text-decoration: underline;
+  }
+
+} /* <-- END OF MOBILE MEDIA QUERY BLOCK */
+
+/* ==========================================
+   DESKTOP VS MOBILE NAV VISIBILITY FIX
+   ========================================== */
+
+/* Hide mobile menu & hamburger by default on PC screens */
+.mobile-menu,
+.menu-toggle {
+  display: none !important;
+}
+
+/* Ensure desktop navigation links show on PC */
+.site-header .nav {
+  display: flex !important;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* On Mobile screens (768px and smaller) */
+@media (max-width: 768px) {
+  /* Hide desktop links */
+  .site-header .nav {
+    display: none !important;
+  }
+
+  /* Show hamburger toggle button */
+  .menu-toggle {
+    display: flex !important;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: #000000 !important;
+    cursor: pointer;
+  }
+
+  /* Mobile menu dropdown formatting */
+  .mobile-menu {
+    display: none; /* hidden until toggled active by JS */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 1.5rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .mobile-menu.active {
+    display: block !important;
+  }
+
+  .mobile-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .mobile-menu li {
+    margin-bottom: 1rem;
+  }
+
+  .mobile-menu a {
+    text-decoration: none;
+    color: #111111;
+    font-weight: 500;
+    font-size: 1.1rem;
     display: block;
-    padding:
+  }
+}
+
+/* HEADER & NAVIGATION ALIGNMENT FIX */
+.site-header {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-container {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 100%;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+}
+
+.site-header .nav {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 1.5rem;
+  margin-left: auto; /* Pushes links to the far right */
+}
+
+/* SHOW HAMBURGER BUTTON ON PC & MOBILE */
+.menu-toggle {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  color: #000000 !important;
+  cursor: pointer;
+  z-index: 10001;
+  margin-left: 1rem; /* Spacing next to desktop links */
+}
+
+/* FIX CLICKABILITY & DROPDOWN DISPLAY FOR PC */
+.menu-toggle {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  font-size: 26px;
+  color: #000000 !important;
+  cursor: pointer;
+  position: relative;
+  z-index: 10005 !important; /* Ensures the button receives click events */
+  padding: 8px;
+}
+
+/* Ensure the menu dropdown displays on PC when activated */
+/* COMPACT DROPDOWN CARD (ALIGNED TO THE RIGHT) */
+.mobile-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 1.5rem; /* Aligns with the right margin */
+  left: auto; /* Cancels full-width stretching */
+  width: 240px; /* Compact box width */
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+  z-index: 10004 !important;
+}
+
+.mobile-menu.active {
+  display: block !important;
+}
+
+/* Clean list styling without bullet points */
+.mobile-menu ul {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.mobile-menu li {
+  margin-bottom: 0.75rem;
+}
+
+.mobile-menu li:last-child {
+  margin-bottom: 0;
+}
+
+.mobile-menu a {
+  text-decoration: none;
+  color: #111111;
+  font-size: 0.95rem;
+  font-weight: 500;
+  display: block;
+  padding: 4px 0;
+  transition: color 0.2s ease;
+}
+
+.mobile-menu a:hover {
+  color: #666666;
+}
+
+.mobile-menu.active {
+  display: block !important; /* Overrides any hidden display on desktop */
+}
+
+/* ==========================================
+   STICKY HEADER FIX
+   ========================================== */
+.site-header {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1000 !important;
+  background-color: #ffffff; /* Or match your site's header background color */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Optional subtle shadow so it looks polished */
+}
+
+html,
+body {
+  overflow-x: clip;
+}
+
+.site-header {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1000 !important;
+  width: 100%;
+  min-height: 75px;
+  padding: 0 clamp(20px, 5vw, 72px);
+}
+
+.nav-container {
+  width: 100%;
+  max-width: 1440px;
+  position: relative;
+  margin: 0 auto;
+  padding: 0 !important;
+}
+
+.site-header .nav {
+  display: none !important;
+}
+
+.menu-toggle {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  padding: 0;
+  flex: 0 0 44px;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.mobile-menu {
+  display: none !important;
+  position: absolute !important;
+  top: calc(100% + 8px) !important;
+  right: 0 !important;
+  left: auto !important;
+  width: min(280px, calc(100vw - 40px)) !important;
+  max-height: calc(100vh - 100px);
+  max-height: calc(100dvh - 100px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 8px 16px !important;
+  background: rgba(255, 255, 255, 0.97) !important;
+  border: 1px solid rgba(32, 33, 29, 0.1) !important;
+  border-radius: 0 !important;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 10005 !important;
+}
+
+.mobile-menu.active {
+  display: block !important;
+}
+
+.mobile-menu ul {
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+
+.mobile-menu li {
+  margin: 0 !important;
+  border-top: 1px solid rgba(32, 33, 29, 0.1);
+}
+
+.mobile-menu li:first-child {
+  border-top: 0;
+}
+
+.mobile-menu li a {
+  display: block;
+  padding: 10px 2px !important;
+  text-align: right;
+  font-size: 14px !important;
+  line-height: 1.4;
+}
+
+.pricing-carousel-controls {
+  display: none;
+}
+
+@media (min-width: 769px) {
+  .site-header {
+    background-color: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+  }
+
+  .site-header .nav {
+    display: flex !important;
+    align-items: center;
+    gap: clamp(14px, 1.8vw, 26px);
+    margin-left: auto;
+    margin-right: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Mobile home hero layout; edit the actual copy in the #home section of index.html. */
+  #home.hero {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100vh - 75px) !important;
+    min-height: calc(100dvh - 75px) !important;
+    padding-top: 24px !important;
+    padding-bottom: 64px !important;
+  }
+
+  /* Brand mark spacing above the homepage copy. */
+  #home .hero-logo-area {
+    margin-bottom: 5px;
+  }
+
+  /* Small studio tagline above the headline. */
+  #home .hero-copy .eyebrow {
+    margin: 0 0 90px;
+    line-height: 1.6;
+  }
+
+  /* Main homepage headline. */
+  #home .hero-copy h1 {
+    margin: 0 0 25px;
+    line-height: 1.12;
+  }
+
+  /* Supporting sentence below the headline. */
+  #home .hero-copy .hero-intro {
+    margin: 0 0 110px;
+    line-height: 1.6;
+  }
+
+  /* Explore Packages primary button. */
+  #home .hero-copy > .button {
+    position: relative !important;
+    width: auto !important;
+    max-width: 100%;
+    margin: 0 !important;
+    padding: 14px 18px !important;
+    bottom: 20px !important;
+    gap: 20px;
+  }
+
+  /* Bottom-of-screen scroll cue. */
+  #home .hero-bottom {
+    position: absolute !important;
+    bottom: 30px !important;
+    left: 24px !important;
+    right: 24px !important;
+    margin: 0 !important;
+  }
+
+  .menu-toggle {
+    flex-direction: row !important;
+    justify-content: center !important;
+    width: 44px !important;
+    height: 44px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 24px !important;
+  }
+
+  .mobile-menu {
+    width: min(280px, calc(100vw - 40px)) !important;
+  }
+
+  .pricing-carousel {
+    display: grid;
+    grid-template-columns: 32px minmax(0, 1fr) 32px;
+    align-items: stretch;
+    gap: 4px;
+    width: calc(100% + 24px);
+    margin: 0 -12px;
+  }
+
+  .pricing-carousel-controls {
+    display: contents;
+  }
+
+  .pricing-carousel-button {
+    display: grid;
+    place-items: center;
+    align-self: center;
+    width: 32px;
+    height: 40px;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    border-radius: 0;
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    font: 26px / 1 var(--sans);
+    cursor: pointer;
+    z-index: 1;
+  }
+
+  .pricing-carousel-button:first-child {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .pricing-carousel-button:last-child {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .pricing-carousel-button:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+
+  .pricing {
+    display: flex !important;
+    grid-column: 2;
+    grid-row: 1;
+    width: 100%;
+    min-width: 0;
+    gap: 20px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    touch-action: auto;
+  }
+
+  .pricing::-webkit-scrollbar {
+    display: none;
+  }
+
+  .pricing > .price-card {
+    flex: 0 0 100%;
+    width: 100%;
+    min-width: 0;
+    scroll-snap-align: start;
+  }
+}
+
+.site-header .logo:focus,
+.site-header .logo:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 20px;
+}
+
+.footer-main {
+  display: contents;
+}
+
+footer > .footer-main {
+  text-decoration: none !important;
+}
+
+footer .footer-main .logo {
+  grid-column: 1;
+  justify-self: start;
+  text-decoration: none !important;
+}
+
+footer .footer-main .logo-main {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+footer .footer-main .logo-sub {
+  font-family: 'Great Vibes', 'Cedarville Cursive', 'Brush Script MT', cursive;
+  font-size: 26px;
+  font-weight: normal;
+  text-transform: none;
+  text-decoration: none;
+}
+
+footer .footer-main p {
+  grid-column: 2;
+  justify-self: center;
+  margin: 0;
+  text-align: center;
+}
+
+footer .footer-links {
+  grid-column: 3;
+  justify-self: end;
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  text-decoration: none;
+}
+
+footer .footer-links a {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  footer {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+  }
+
+  footer .footer-main,
+  footer .footer-main .logo,
+  footer .footer-main .logo-text,
+  footer .footer-main .logo-main,
+  footer .footer-main .logo-sub,
+  footer .footer-main p {
+    text-decoration: none !important;
+  }
+
+  .footer-main {
+    display: flex;
+  }
+
+  footer .footer-main .logo-main {
+    font-size: 18px;
+  }
+
+  footer .footer-main .logo-sub {
+    font-size: 20px;
+  }
+
+  footer .footer-main p {
+    justify-self: auto;
+    text-align: right;
+  }
+
+  footer .footer-links {
+    display: flex !important;
+    justify-content: space-between;
+    gap: 0 12px !important;
+    width: 100%;
+  }
+
+  footer .footer-links a {
+    white-space: nowrap;
+  }
+}
