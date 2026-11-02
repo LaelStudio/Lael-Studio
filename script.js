@@ -156,8 +156,9 @@ if (portfolioSection && portfolioBackground) {
   }
 
   const pricingNote = document.querySelector('.pricing-note');
-  if (pricingNote) {
-    pricingNote.textContent = `Each additional section after 8 · ${formatPrice(prices.packages.Masterpiece)} + ${formatPrice(prices.additionalSection)} per additional section, 5 + 1 review per additional added sections`;
+  const pricingNotePrice = pricingNote?.querySelector('.pricing-note-price');
+  if (pricingNotePrice) {
+    pricingNotePrice.textContent = `${formatPrice(prices.packages.Masterpiece)} + ${formatPrice(prices.additionalSection)} per additional section,`;
   }
 
   const commerceCopy = document.querySelector('.commerce-note span');
@@ -174,6 +175,39 @@ function updatePackageSelectDiscountState() {
 }
 
 packageSelect?.addEventListener('change', updatePackageSelectDiscountState);
+
+const whySection = document.querySelector('#why-choose-us');
+const whyBackground = document.createElement('img');
+whyBackground.className = 'why-background';
+whyBackground.src = 'choose.jpeg';
+whyBackground.alt = '';
+whyBackground.setAttribute('aria-hidden', 'true');
+
+if (whySection) {
+  whySection.prepend(whyBackground);
+}
+
+function orientWhyBackground() {
+  if (!whySection) return;
+
+  if (window.matchMedia('(min-width: 769px)').matches) {
+    const { width, height } = whySection.getBoundingClientRect();
+    whyBackground.style.width = `${height}px`;
+    whyBackground.style.height = `${width}px`;
+    whyBackground.style.transform = 'translate(-50%, -50%) rotate(90deg)';
+    return;
+  }
+
+  whyBackground.style.width = '100%';
+  whyBackground.style.height = '100%';
+  whyBackground.style.transform = 'translate(-50%, -50%)';
+}
+
+if (whySection) {
+  orientWhyBackground();
+  window.addEventListener('resize', orientWhyBackground);
+  window.addEventListener('load', orientWhyBackground, { once: true });
+}
 
 const processSection = document.querySelector('#the-process');
 const processBackground = document.createElement('img');
@@ -206,6 +240,39 @@ if (processSection) {
   orientProcessBackground();
   window.addEventListener('resize', orientProcessBackground);
   window.addEventListener('load', orientProcessBackground, { once: true });
+}
+
+const servicesSection = document.querySelector('#services');
+const servicesBackground = document.createElement('img');
+servicesBackground.className = 'services-background';
+servicesBackground.src = 'process1.jpeg';
+servicesBackground.alt = '';
+servicesBackground.setAttribute('aria-hidden', 'true');
+
+if (servicesSection) {
+  servicesSection.prepend(servicesBackground);
+}
+
+function orientServicesBackground() {
+  if (!servicesSection) return;
+
+  if (window.matchMedia('(min-width: 769px)').matches) {
+    const { width, height } = servicesSection.getBoundingClientRect();
+    servicesBackground.style.width = `${height}px`;
+    servicesBackground.style.height = `${width}px`;
+    servicesBackground.style.transform = 'translate(-50%, -50%) rotate(90deg)';
+    return;
+  }
+
+  servicesBackground.style.width = '100%';
+  servicesBackground.style.height = '100%';
+  servicesBackground.style.transform = 'translate(-50%, -50%)';
+}
+
+if (servicesSection) {
+  orientServicesBackground();
+  window.addEventListener('resize', orientServicesBackground);
+  window.addEventListener('load', orientServicesBackground, { once: true });
 }
 
 const pricingTrack = document.querySelector('.pricing');
@@ -435,6 +502,26 @@ const successOverlay = document.querySelector('#success-overlay');
 const successClose = document.querySelector('.success-close');
 
 if (enquiryForm) {
+  const messageField = enquiryForm.querySelector('textarea[name="message"]');
+  const mobileViewport = window.matchMedia('(max-width: 768px)');
+
+  if (messageField) {
+    const resizeMessageField = () => {
+      if (!mobileViewport.matches) {
+        messageField.style.height = '';
+        return;
+      }
+
+      messageField.style.height = '32px';
+      messageField.style.height = `${messageField.scrollHeight}px`;
+    };
+
+    messageField.addEventListener('input', resizeMessageField);
+    mobileViewport.addEventListener('change', resizeMessageField);
+    resizeMessageField();
+    enquiryForm.addEventListener('reset', () => requestAnimationFrame(resizeMessageField));
+  }
+
   enquiryForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     const submitButton = enquiryForm.querySelector('button[type="submit"]');

@@ -67,6 +67,28 @@ body.currency-selection-open {
   font: 500 clamp(26px, 5vw, 38px) / 1.15 var(--serif);
 }
 
+.currency-welcome,
+.currency-prompt {
+  display: block;
+}
+
+.currency-prompt {
+  margin-top: 12px;
+  font-size: clamp(12px, 1.8vw, 16px);
+}
+
+.currency-brand-main {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+}
+
+.currency-brand-script {
+  font-family: 'Great Vibes', 'Cedarville Cursive', 'Brush Script MT', cursive;
+  font-weight: normal;
+  font-size: 1.4em;
+}
+
 .currency-options {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -92,6 +114,19 @@ body.currency-selection-open {
 
 .currency-option:focus-visible {
   outline: none;
+}
+
+@media (max-width: 768px) {
+  .currency-welcome {
+    font-size: clamp(14px, 5vw, 20px);
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 769px) {
+  .currency-welcome {
+    font-size: 30px;
+  }
 }
 
 
@@ -376,6 +411,11 @@ h2 em {
   margin-top: 15px;
 }
 
+.intro-col-right .text-link {
+  color: var(--red);
+  border-bottom-color: var(--red);
+}
+
 
 /* ==========================================
    5. SITE SECTIONS
@@ -447,10 +487,21 @@ h2 em {
   position: relative;
   isolation: isolate;
   background-color: #740101;
-  background-image: url('choose.jpeg');
-  background-size: cover;
-  background-position: center;
   color: white;
+}
+
+.why-background {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -2;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
 }
 
 .why::before {
@@ -471,6 +522,14 @@ h2 em {
 
 .why-head p {
   max-width: 300px;
+  color: var(--red);
+}
+
+@media (min-width: 769px) {
+  .why-head p {
+    margin-left: auto;
+    text-align: right;
+  }
 }
 
 .benefits {
@@ -482,10 +541,10 @@ h2 em {
 .benefits article {
   min-height: 250px;
   padding: 22px 22px 24px;
-  border: 1px solid rgba(255, 255, 255, 0);
-  background: rgba(255, 255, 255, .8);
-  backdrop-filter: blur(1px);
-  -webkit-backdrop-filter: blur(1px);
+  border: 1px solid rgba(255, 255, 255, .55);
+  background: rgba(255, 255, 255, .82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border-radius: 12px;
   color: #000000;
 }
@@ -522,8 +581,7 @@ h2 em {
 }
 
 .process {
-  --process-overlay-opacity: 0.3;
-  --process-glass-blur: px;
+  --process-overlay-opacity: 0.1;
   position: relative;
   isolation: isolate;
   overflow: hidden;
@@ -551,8 +609,6 @@ h2 em {
   inset: 0;
   z-index: -1;
   background: rgba(0, 0, 0, var(--process-overlay-opacity));
-  -webkit-backdrop-filter: blur(var(--process-glass-blur));
-  backdrop-filter: blur(var(--process-glass-blur));
 }
 
 .process .section-label {
@@ -569,9 +625,14 @@ h2 em {
   gap: 18px;
 }
 
-.steps article {
-  border-top: 1px solid rgba(245, 240, 232, .4);
-  padding-top: 18px;
+.process .steps article {
+  border: 1px solid rgba(255, 255, 255, .55);
+  border-radius: 12px;
+  padding: 20px;
+  background: rgba(255, 255, 255, .82);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: #211810;
 }
 
 .steps h3 {
@@ -582,6 +643,10 @@ h2 em {
 .steps p {
   font-size: 13px;
   color: #ffffff;
+}
+
+.process .steps p {
+  color: #3e342d;
 }
 
 .portfolio {
@@ -874,10 +939,36 @@ cite {
   position: relative;
   isolation: isolate;
   background-color: #521a00;
-  background-image: url('process1.jpeg');
-  background-size: cover;
-  background-position: center;
   color: #ffffff;
+}
+
+.services > .section-label {
+  color: #ffffff;
+}
+
+.services-background {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -2;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+}
+
+.services::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgba(0, 0, 0, .2);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  pointer-events: none;
 }
 
 .services-head {
@@ -896,11 +987,12 @@ cite {
 
 .price-card {
   position: relative;
-  background: rgba(255, 255, 255, .78);
-  border: 1px solid rgba(255, 255, 255, 0);
-  backdrop-filter: blur(1px);
-  -webkit-backdrop-filter: blur(1px);
-  color: #000000;
+  background: rgba(255, 255, 255, .82);
+  border: 1px solid rgba(255, 255, 255, .55);
+  border-radius: 12px;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: #211810;
   padding: 20px;
   min-height: auto;
   display: flex;
@@ -908,27 +1000,41 @@ cite {
 }
 
 .price-card.featured {
-  background: rgba(255, 255, 255, .78);
-  color: #000000;
+  background: rgba(255, 255, 255, .82);
+  color: #211810;
 }
 
 .price-card h3 {
   font: 500 34px var(--serif);
-  margin: 30px 0 6px;
+  margin: 12px 0 6px;
 }
 
 .price-card strong {
-  width: 100%;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  width: auto;
   font: 500 18px var(--serif);
   text-align: left;
   margin-bottom: 10px;
 }
 
+.price-card > .price-number {
+  display: none;
+}
+
 .price-card .package-price {
   display: flex;
   align-items: baseline;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 8px;
+}
+
+.price-card.featured strong::after {
+  content: 'Most popular';
+  color: var(--red);
+  font: 500 11px var(--mono);
+  white-space: nowrap;
 }
 
 .package-price.has-discount .package-price-original {
@@ -1099,6 +1205,19 @@ details[open] summary span::before {
   content: '\2212';
 }
 
+.faq-question-text {
+  color: inherit;
+  font-size: inherit;
+}
+
+.faq-question-text::before {
+  content: none;
+}
+
+.faq-mobile-break {
+  display: none;
+}
+
 details p {
   font-size: 13px;
   max-width: 530px;
@@ -1145,6 +1264,10 @@ details p {
   font-size: 14px;
 }
 
+.enquiry-mobile-break {
+  display: none;
+}
+
 .enquiry-copy a {
   color: #fffab8;
   text-decoration: underline;
@@ -1158,11 +1281,12 @@ form {
 
 .enquiry form {
   padding: 32px;
-  background: rgba(255, 255, 255, .4);
-  border: 1px solid rgba(255, 255, 255, 0);
-  -webkit-backdrop-filter: blur(5px);
-  backdrop-filter: blur(5px);
-  color: #ffffff;
+  background: rgba(255, 255, 255, .58);
+  border: 1px solid rgba(255, 255, 255, .7);
+  border-radius: 14px;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: #211810;
 }
 
 label {
@@ -1172,7 +1296,7 @@ label {
 }
 
 .enquiry form label {
-  color: #ffffff;
+  color: #211810;
 }
 
 input, 
@@ -1206,18 +1330,18 @@ textarea {
 .enquiry form input,
 .enquiry form select,
 .enquiry form textarea {
-  border-bottom-color: rgba(255, 255, 255, .6);
-  color: #ffffff;
+  border-bottom-color: rgba(33, 24, 16, .45);
+  color: #211810;
 }
 
 .enquiry form select {
   min-height: 42px;
   border: 0 !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.6) !important;
+  border-bottom: 1px solid rgba(33, 24, 16, .45) !important;
   border-radius: 0;
   padding: 10px 0 !important;
   background-color: transparent !important;
-  color: #ffffff !important;
+  color: #211810 !important;
   font: 12px var(--sans) !important;
 }
 
@@ -1238,7 +1362,7 @@ textarea {
 .enquiry form input:-webkit-autofill,
 .enquiry form textarea:-webkit-autofill,
 .enquiry form select:-webkit-autofill {
-  -webkit-text-fill-color: #ffffff !important;
+  -webkit-text-fill-color: #211810 !important;
   -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
   box-shadow: none !important;
   background-color: transparent !important;
@@ -1247,7 +1371,7 @@ textarea {
 
 .enquiry form input::placeholder,
 .enquiry form textarea::placeholder {
-  color: #ffffff;
+  color: #211810;
   opacity: 1;
 }
 
@@ -1297,28 +1421,28 @@ textarea {
 .success-overlay {
   position: fixed;
   inset: 0;
-  z-index: 100;
+  z-index: 20000;
   display: grid;
   place-items: center;
   padding: 24px;
-  background: rgba(255, 255, 255, .78);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
+  background: rgba(255, 255, 255, .62);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
 }
 
 .success-dialog {
   position: relative;
-  width: min(100%, 460px);
-  padding: 56px 40px 48px;
+  width: min(100%, 560px);
+  padding: clamp(28px, 6vw, 56px);
   background: #ffffff;
-  color: #000000;
+  color: var(--ink);
   text-align: center;
-  box-shadow: 0 18px 60px rgba(0, 0, 0, .16);
+  box-shadow: 0 18px 70px rgba(32, 33, 29, .12);
 }
 
 .success-dialog h2 {
-  margin: 0 0 16px;
-  font: 500 28px / 1.1 var(--serif);
+  margin: 0 0 30px;
+  font: 500 clamp(20px, 4vw, 28px) / 1.15 var(--serif);
 }
 
 .success-dialog p {
@@ -1799,8 +1923,22 @@ footer > div {
     width: 100% !important;
   }
 
+  .why h2 {
+    font-size: clamp(28px, 6.5vw, 38px) !important;
+  }
+
+  .why > .section-label {
+    color: var(--red);
+  }
+
+  .why-head h2,
+  .why-head p {
+    color: var(--red);
+  }
+
   .why-head p {
     margin: 0 !important;
+    font-size: 12px;
   }
 
   .benefits {
@@ -1811,7 +1949,7 @@ footer > div {
 
   .benefits article {
     padding: 10px 16px !important;
-    background: rgba(255, 255, 255, 0.74) !important;
+    background: rgba(255, 255, 255, .55) !important;
     border-radius: 12px !important;
     margin-bottom: 0 !important;
     height: auto !important;
@@ -1846,24 +1984,34 @@ footer > div {
   /* ==========================================
      [SECTION 5]: THE PROCESS SECTION
      ========================================== */
+  .process h2 {
+    margin-bottom: 24px;
+    font-size: 40px !important;
+  }
+
   .steps {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 10px;
   }
 
-  .steps article {
-    padding: 16px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  .process .steps article {
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, .55);
+  }
+
+  .process .steps article > span {
+    display: none;
   }
 
   .steps h3 {
     font-size: 16px;
-    margin: 8px 0 4px;
+    margin: 0 0 4px;
   }
 
-  .steps p {
+  .process .steps p {
     font-size: 13px;
+    margin: 0;
   }
 
 
@@ -2075,10 +2223,62 @@ footer > div {
   /* ==========================================
      [SECTION 8]: SERVICE PACKAGES & PRICING
      ========================================== */
+  .services::before {
+    -webkit-backdrop-filter: blur(2.5px);
+    backdrop-filter: blur(2.5px);
+  }
+
   .services-head {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 20px !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 12px !important;
+    margin-bottom: 18px !important;
+  }
+
+  .pricing-note {
+    font-size: 14px;
+    line-height: 1.35;
+  }
+
+  .services-head h2 {
+    font-size: clamp(26px, 6vw, 36px) !important;
+  }
+
+  .services-head p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.35;
+  }
+
+  .pricing-note {
+    margin: 14px 0;
+    font-size: 10px;
+    line-height: 1.35;
+    text-align: center;
+  }
+
+  .pricing-note span {
+    display: block;
+  }
+
+  .commerce-note b {
+    font-size: 25px;
+  }
+
+  .commerce-note {
+    gap: 12px;
+  }
+
+  .commerce-note span {
+    font-size: 12px;
+    line-height: 1.35;
+    text-align: right;
+  }
+
+  .commerce-note a {
+    display: block;
+    margin-top: 6px;
   }
 
   .pricing {
@@ -2090,6 +2290,11 @@ footer > div {
   .price-card {
     padding: 24px;
     min-height: auto;
+    background: rgba(255, 255, 255, .72);
+  }
+
+  .price-card.featured {
+    background: rgba(255, 255, 255, .72);
   }
 
   .price-card h3 {
@@ -2162,9 +2367,25 @@ footer > div {
     margin: 0 !important;
   }
 
-  details summary {
+  .faq-list details {
+    padding: 10px 0 12px;
+  }
+
+  .faq-list details:last-child {
+    padding-bottom: 40px;
+  }
+
+  #faq {
+    padding-bottom: 0 !important;
+  }
+
+  .faq-list details > summary {
     font-size: 14px;
-    padding: 14px 0;
+    padding: 8px 0;
+  }
+
+  .faq-mobile-break {
+    display: block;
   }
 
   details p {
@@ -2188,22 +2409,67 @@ footer > div {
     margin-bottom: 50px !important;
   }
 
+  .enquiry-copy {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
+    align-items: center;
+    column-gap: 1px;
+  }
+
+  .enquiry-copy .section-label {
+    grid-column: 1 / -1;
+  }
+
+  .enquiry-copy h2 {
+    margin-bottom: 0;
+    font-size: clamp(24px, 7vw, 32px) !important;
+    white-space: nowrap;
+  }
+
   .enquiry form {
     display: flex !important;
     flex-direction: column !important;
     width: 100% !important;
-    gap: 16px !important;
+    gap: 10px !important;
+    padding: 18px !important;
   }
 
   .enquiry form label {
     font-size: 12px;
   }
 
+  .enquiry-copy > p {
+    font-size: clamp(9px, 2.6vw, 10px);
+    justify-self: end;
+    text-align: right;
+    overflow-wrap: anywhere;
+  }
+
+  .enquiry-mobile-break {
+    display: block;
+  }
+
   .enquiry form input,
   .enquiry form select,
   .enquiry form textarea {
     font-size: 14px;
-    padding: 12px;
+    padding: 7px 0;
+  }
+
+  .enquiry form textarea {
+    box-sizing: border-box;
+    height: 32px;
+    overflow-y: hidden;
+    resize: none;
+  }
+
+  .enquiry form .check input {
+    padding: 0;
+  }
+
+  .enquiry form label.check {
+    font-size: 10px;
+    line-height: 1.5;
   }
 
   .button {
@@ -2247,6 +2513,14 @@ footer > div {
     clear: both !important;
     margin-top: 60px !important;
     margin-bottom: 0 !important;
+  }
+
+  #enquiry {
+    margin-top: 16px !important;
+  }
+
+  .enquiry-copy {
+    margin-bottom: 28px !important;
   }
 
   .enquiry form {
@@ -2675,7 +2949,7 @@ body {
 
   .pricing-carousel {
     display: grid;
-    grid-template-columns: 32px minmax(0, 1fr) 32px;
+    grid-template-columns: 40px minmax(0, 1fr) 40px;
     align-items: stretch;
     gap: 4px;
     width: calc(100% + 24px);
@@ -2690,16 +2964,28 @@ body {
     display: grid;
     place-items: center;
     align-self: center;
-    width: 32px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     padding: 0;
-    border: 1px solid rgba(255, 255, 255, 0.75);
-    border-radius: 0;
-    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.16);
     color: #ffffff;
-    font: 26px / 1 var(--sans);
+    font: 17px / 1 var(--sans);
     cursor: pointer;
     z-index: 1;
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    transition: background-color .2s ease, transform .2s ease, opacity .2s ease;
+  }
+
+  .pricing-carousel-button:not(:disabled):active {
+    transform: scale(.94);
+  }
+
+  .pricing-carousel-button:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 3px;
   }
 
   .pricing-carousel-button:first-child {
