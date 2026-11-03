@@ -9,19 +9,19 @@ let selectedCurrency = 'USD';
 // DISCOUNT PRICES, SELECT TRUE OR FALSE, CAN CHANGE VALUE
 const discounts = {
   GBP: {
-    Minimalist: { active: true, percent: 30, price: 559 },
-    Refined: { active: true, percent: 30, price: 839 },
-    Masterpiece: { active: true, percent: 30, price: 1119 }
-  },
-  EUR: {
     Minimalist: { active: true, percent: 30, price: 489 },
-    Refined: { active: true, percent: 30, price: 699 },
+    Refined: { active: true, percent: 30, price: 769 },
     Masterpiece: { active: true, percent: 30, price: 979 }
   },
-  USD: {
+  EUR: {
     Minimalist: { active: true, percent: 30, price: 419 },
     Refined: { active: true, percent: 30, price: 629 },
     Masterpiece: { active: true, percent: 30, price: 839 }
+  },
+  USD: {
+    Minimalist: { active: true, percent: 30, price: 349 },
+    Refined: { active: true, percent: 30, price: 524 },
+    Masterpiece: { active: true, percent: 30, price: 699 }
   }
 };
 
@@ -30,27 +30,27 @@ const discounts = {
 const currencyPrices = {
   GBP: {
     locale: 'en-GB',
-    packages: { Minimalist: 799, Refined: 1199, Masterpiece: 1599 },
-    enquiry: { Minimalist: 799, Refined: 1199, Masterpiece: 1599 },
+    packages: { Minimalist: 699, Refined: 1099, Masterpiece: 1399 },
+    enquiry: { Minimalist: 699, Refined: 1099, Masterpiece: 1399 },
     domainRenewal: [10, 15],
-    additionalSection: 199,
+    additionalSection: 179,
     ecommerceMinimum: 2599
   },
   EUR: {
     locale: 'en-IE',
-    packages: { Minimalist: 699, Refined: 999, Masterpiece: 1399 },
-    enquiry: { Minimalist: 699, Refined: 999, Masterpiece: 1399 },
+    packages: { Minimalist: 599, Refined: 899, Masterpiece: 1199 },
+    enquiry: { Minimalist: 599, Refined: 899, Masterpiece: 1199 },
     domainRenewal: [10, 20],
-    additionalSection: 159,
+    additionalSection: 149,
     ecommerceMinimum: 2199
   },
   USD: {
     locale: 'en-US',
-    packages: { Minimalist: 599, Refined: 899, Masterpiece: 1199 },
-    enquiry: { Minimalist: 599, Refined: 899, Masterpiece: 1199 },
+    packages: { Minimalist: 499, Refined: 749, Masterpiece: 999 },
+    enquiry: { Minimalist: 499, Refined: 749, Masterpiece: 999 },
     domainRenewal: [10, 30],
-    additionalSection: 149,
-    ecommerceMinimum: 1999
+    additionalSection: 129,
+    ecommerceMinimum: 1799
   }
 };
 
