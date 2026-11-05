@@ -34,7 +34,8 @@ const currencyPrices = {
     enquiry: { Minimalist: 699, Refined: 1099, Masterpiece: 1399 },
     domainRenewal: [10, 15],
     additionalSection: 179,
-    ecommerceMinimum: 2599
+    ecommerceMinimum: 2599,
+    minorUpdateFee: 16
   },
   EUR: {
     locale: 'en-IE',
@@ -42,7 +43,8 @@ const currencyPrices = {
     enquiry: { Minimalist: 599, Refined: 899, Masterpiece: 1199 },
     domainRenewal: [10, 20],
     additionalSection: 149,
-    ecommerceMinimum: 2199
+    ecommerceMinimum: 2199,
+    minorUpdateFee: 12
   },
   USD: {
     locale: 'en-US',
@@ -50,7 +52,8 @@ const currencyPrices = {
     enquiry: { Minimalist: 499, Refined: 749, Masterpiece: 999 },
     domainRenewal: [10, 30],
     additionalSection: 129,
-    ecommerceMinimum: 1799
+    ecommerceMinimum: 1799,
+    minorUpdateFee: 10
   }
 };
 
@@ -161,9 +164,18 @@ if (portfolioSection && portfolioBackground) {
     pricingNotePrice.textContent = `${formatPrice(prices.packages.Masterpiece)} + ${formatPrice(prices.additionalSection)} per additional section,`;
   }
 
+  const commerceHeading = document.querySelector('.commerce-note b');
+  if (commerceHeading) {
+    commerceHeading.textContent = 'Are you a past client?';
+  }
+
   const commerceCopy = document.querySelector('.commerce-note span');
   if (commerceCopy?.firstChild?.nodeType === Node.TEXT_NODE) {
-    commerceCopy.firstChild.nodeValue = `Standard online shops aren't our thing. E-commerce builds are handled via custom quote only, starting from ${formatPrice(prices.ecommerceMinimum)}+. `;
+    const currencySymbol = formatter.formatToParts(0).find((part) => part.type === 'currency')?.value ?? currency;
+    const updateFee = prices.minorUpdateFee == null ? `${currencySymbol}___` : formatPrice(prices.minorUpdateFee);
+    commerceCopy.firstChild.nodeValue = `We can still do updates, for example changing prices, with minor updates starting at a flat fee of ${updateFee}. `;
+    const updateLink = commerceCopy.querySelector('a');
+    if (updateLink) updateLink.textContent = 'Email us about an update ↗';
   }
 }
 
