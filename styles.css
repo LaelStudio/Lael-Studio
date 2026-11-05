@@ -615,8 +615,30 @@ h2 em {
   color: #ffffff;
 }
 
-.process h2 {
-  margin-bottom: 70px;
+.process-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 30px;
+}
+
+.process-heading h2 {
+  margin: 0;
+}
+
+.process-details-link {
+  color: #fff8b8;
+  font-size: 22px;
+  font-weight: 500;
+  font-family: var(--serif);
+  text-decoration: underline;
+  white-space: nowrap;
+}
+
+.process-details-link span {
+  position: relative;
+  left: -3px;
 }
 
 .steps {
@@ -963,7 +985,7 @@ cite {
 .services::before {
   content: '';
   position: absolute;
-  inset: 0;
+  inset: -12px;
   z-index: -1;
   background: rgba(0, 0, 0, .2);
   -webkit-backdrop-filter: blur(4px);
@@ -1984,9 +2006,17 @@ footer > div {
   /* ==========================================
      [SECTION 5]: THE PROCESS SECTION
      ========================================== */
-  .process h2 {
+  .process-heading {
+    gap: 6px;
     margin-bottom: 24px;
+  }
+
+  .process-heading h2 {
     font-size: 40px !important;
+  }
+
+  .process-details-link {
+    font-size: clamp(9px, 2.6vw, 10px);
   }
 
   .steps {
@@ -2226,6 +2256,7 @@ footer > div {
   .services::before {
     -webkit-backdrop-filter: blur(2.5px);
     backdrop-filter: blur(2.5px);
+    inset: 0px;
   }
 
   .services-head {
@@ -2271,6 +2302,7 @@ footer > div {
   }
 
   .commerce-note span {
+    margin-top: 8px;
     font-size: 12px;
     line-height: 1.35;
     text-align: right;
@@ -3136,5 +3168,11 @@ footer .footer-links a {
 
   footer .footer-links a {
     white-space: nowrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .process-details-link {
+    font-size: 18px;
   }
 }
